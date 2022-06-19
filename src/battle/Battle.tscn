@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/gui/panel_white.tres" type="StyleBox" id=1]
 [ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=2]
@@ -8,10 +8,16 @@
 [ext_resource path="res://assets/images/ui/ap_texture.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/ui/square.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/ui/heart_black.png" type="Texture" id=8]
+[ext_resource path="res://src/battle/Battle.gd" type="Script" id=9]
 
 [node name="Battle" type="Control"]
 margin_right = 109.0
 margin_bottom = 192.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
 
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -27,6 +33,9 @@ margin_left = 10.0
 margin_right = -10.0
 margin_bottom = 67.0
 custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Enemy" type="Sprite" parent="EnemyPanel"]
 position = Vector2( 20, 10 )
@@ -38,9 +47,9 @@ frame = 2
 [node name="HP" type="TextureRect" parent="EnemyPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -8.5
+margin_left = -10.5
 margin_top = 10.0
-margin_right = -3.5
+margin_right = -5.5
 margin_bottom = 15.0
 texture = ExtResource( 8 )
 
@@ -83,11 +92,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -16.0
-margin_top = -7.0
-margin_right = -11.0
-margin_bottom = -2.0
+margin_left = -16.5
+margin_top = -6.0
+margin_right = -11.5
+margin_bottom = -1.0
 texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HP" type="RichTextLabel" parent="PlayerPanel/HP"]
 anchor_top = 0.5
@@ -207,3 +219,16 @@ margin_bottom = -2.0
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 2
+
+[node name="Hand" type="Control" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -106.0
+margin_bottom = -17.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position2D" type="Position2D" parent="Hand"]
+position = Vector2( 15, 24 )
