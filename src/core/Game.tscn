@@ -1,7 +1,48 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/battle/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/core/Game.gd" type="Script" id=2]
+[ext_resource path="res://assets/images/title.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/logo.png" type="Texture" id=4]
+[ext_resource path="res://assets/gui/img/settings.png" type="Texture" id=5]
+[ext_resource path="res://assets/gui/img/gem.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/sprites/portraits.png" type="Texture" id=7]
+[ext_resource path="res://assets/gui/img/square.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/sprites/icons.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/logo_door.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/arrow.png" type="Texture" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Flash"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Tap:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Tap:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
@@ -10,14 +51,412 @@ script = ExtResource( 2 )
 
 [node name="Battle" parent="GUI" instance=ExtResource( 1 )]
 
-[node name="Banner" type="ColorRect" parent="GUI"]
-anchor_right = 1.0
-margin_bottom = 9.0
-color = Color( 0.152941, 0.152941, 0.152941, 1 )
-
-[node name="Label" type="Label" parent="GUI/Banner"]
+[node name="MainMenu" type="ColorRect" parent="GUI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Lv. 54 Dev'lil"
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Btns" type="VBoxContainer" parent="GUI/MainMenu"]
+margin_left = 6.0
+margin_top = 69.0
+margin_right = 103.0
+margin_bottom = 163.0
+
+[node name="ContinueBtn" type="Button" parent="GUI/MainMenu/Btns"]
+margin_right = 97.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 0, 21 )
+text = "Continue Game"
+
+[node name="NewBtn" type="Button" parent="GUI/MainMenu/Btns"]
+margin_top = 25.0
+margin_right = 97.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 15 )
+text = "Start New Game"
+
+[node name="Title" type="TextureRect" parent="GUI/MainMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -27.5
+margin_top = 31.0
+margin_right = 28.5
+margin_bottom = 46.0
+texture = ExtResource( 3 )
+
+[node name="Back" type="Button" parent="GUI/MainMenu"]
+margin_left = 3.0
+margin_top = 178.0
+margin_right = 28.0
+margin_bottom = 189.0
+text = "<Back"
+
+[node name="GemShop" type="Button" parent="GUI/MainMenu"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -51.0
+margin_top = -14.0
+margin_right = -3.0
+margin_bottom = -3.0
+
+[node name="Label" type="Label" parent="GUI/MainMenu/GemShop"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -6.5
+margin_right = -11.0
+margin_bottom = 6.5
+text = "32,985"
+align = 2
+valign = 1
+
+[node name="Sprite" type="Sprite" parent="GUI/MainMenu/GemShop"]
+position = Vector2( 39, 2 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="NewGame" type="ColorRect" parent="GUI/MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 9.0
+margin_bottom = -20.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Portrait" type="Sprite" parent="GUI/MainMenu/NewGame"]
+position = Vector2( -2, 0 )
+texture = ExtResource( 7 )
+centered = false
+hframes = 7
+vframes = 4
+
+[node name="Title" type="Label" parent="GUI/MainMenu/NewGame"]
+margin_left = 44.0
+margin_top = 7.0
+margin_right = 104.0
+margin_bottom = 13.0
+text = "Lv. 1 Fighter"
+
+[node name="XpGauge" type="TextureProgress" parent="GUI/MainMenu/NewGame"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 44.0
+margin_top = -148.0
+margin_right = -4.0
+margin_bottom = -147.0
+value = 50.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 8 )
+tint_under = Color( 0.152941, 0.152941, 0.152941, 1 )
+tint_progress = Color( 0.760784, 0.760784, 0.760784, 1 )
+nine_patch_stretch = true
+
+[node name="XpVal" type="Label" parent="GUI/MainMenu/NewGame"]
+margin_left = 44.0
+margin_top = 17.0
+margin_right = 104.0
+margin_bottom = 23.0
+custom_colors/font_color = Color( 0.313726, 0.313726, 0.313726, 1 )
+text = "100/200 XP"
+
+[node name="Stats" type="HBoxContainer" parent="GUI/MainMenu/NewGame"]
+margin_left = 43.0
+margin_top = 26.0
+margin_right = 110.0
+margin_bottom = 40.0
+custom_constants/separation = 2
+
+[node name="Life" type="Control" parent="GUI/MainMenu/NewGame/Stats"]
+margin_right = 11.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 11, 0 )
+
+[node name="Sprite" type="Sprite" parent="GUI/MainMenu/NewGame/Stats/Life"]
+modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+position = Vector2( 3, 2 )
+texture = ExtResource( 9 )
+centered = false
+hframes = 10
+vframes = 10
+
+[node name="Label" type="Label" parent="GUI/MainMenu/NewGame/Stats/Life"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -6.0
+margin_right = 1.0
+text = "15"
+align = 1
+
+[node name="Armor" type="Control" parent="GUI/MainMenu/NewGame/Stats"]
+margin_left = 13.0
+margin_right = 24.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 11, 0 )
+
+[node name="Sprite" type="Sprite" parent="GUI/MainMenu/NewGame/Stats/Armor"]
+modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+position = Vector2( 3, 2 )
+texture = ExtResource( 9 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 1
+
+[node name="Label" type="Label" parent="GUI/MainMenu/NewGame/Stats/Armor"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -6.0
+margin_right = 1.0
+text = "0"
+align = 1
+
+[node name="Mana" type="Control" parent="GUI/MainMenu/NewGame/Stats"]
+margin_left = 26.0
+margin_right = 37.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 11, 0 )
+
+[node name="Sprite" type="Sprite" parent="GUI/MainMenu/NewGame/Stats/Mana"]
+modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+position = Vector2( 3, 2 )
+texture = ExtResource( 9 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 2
+
+[node name="Label" type="Label" parent="GUI/MainMenu/NewGame/Stats/Mana"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -6.0
+margin_right = 1.0
+text = "0"
+align = 1
+
+[node name="Stamina" type="Control" parent="GUI/MainMenu/NewGame/Stats"]
+margin_left = 39.0
+margin_right = 50.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 11, 0 )
+
+[node name="Sprite" type="Sprite" parent="GUI/MainMenu/NewGame/Stats/Stamina"]
+modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+position = Vector2( 3, 2 )
+texture = ExtResource( 9 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 3
+
+[node name="Label" type="Label" parent="GUI/MainMenu/NewGame/Stats/Stamina"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -6.0
+margin_right = 1.0
+text = "4"
+align = 1
+
+[node name="Gold" type="Control" parent="GUI/MainMenu/NewGame/Stats"]
+margin_left = 52.0
+margin_right = 63.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 11, 0 )
+
+[node name="Sprite" type="Sprite" parent="GUI/MainMenu/NewGame/Stats/Gold"]
+modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+position = Vector2( 3, 2 )
+texture = ExtResource( 9 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 4
+
+[node name="Label" type="Label" parent="GUI/MainMenu/NewGame/Stats/Gold"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -6.0
+margin_right = 1.0
+text = "10"
+align = 1
+
+[node name="Perks" type="Button" parent="GUI/MainMenu/NewGame"]
+margin_left = 4.0
+margin_top = 46.0
+margin_right = 105.0
+margin_bottom = 59.0
+disabled = true
+text = "Perks Unlocked at Lv. 3"
+
+[node name="Gear" type="Button" parent="GUI/MainMenu/NewGame"]
+margin_left = 4.0
+margin_top = 61.0
+margin_right = 105.0
+margin_bottom = 74.0
+disabled = true
+text = "Gear Unlocked at Lv. 2"
+
+[node name="SubClass" type="Button" parent="GUI/MainMenu/NewGame"]
+margin_left = 4.0
+margin_top = 76.0
+margin_right = 105.0
+margin_bottom = 89.0
+shortcut_in_tooltip = false
+text = "Novice Fighter"
+
+[node name="Label" type="Label" parent="GUI/MainMenu/NewGame"]
+margin_top = 92.0
+margin_right = 109.0
+margin_bottom = 134.0
+text = "A mighty warrior who is proficient with all weapons. Utilizes powerful skills to dominate the enemy."
+align = 1
+autowrap = true
+
+[node name="Delve" type="Button" parent="GUI/MainMenu/NewGame"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.5
+margin_top = -16.0
+margin_right = 21.5
+margin_bottom = -1.0
+text = "Delve!"
+icon = ExtResource( 10 )
+
+[node name="Prev" type="TextureButton" parent="GUI/MainMenu/NewGame"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -105.0
+margin_top = -16.0
+margin_right = -80.0
+margin_bottom = -1.0
+texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 3
+flip_h = true
+
+[node name="Next" type="TextureButton" parent="GUI/MainMenu/NewGame"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -29.0
+margin_top = -16.0
+margin_right = -4.0
+margin_bottom = -1.0
+texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 3
+
+[node name="Banner" type="Label" parent="GUI"]
+anchor_right = 1.0
+margin_bottom = 9.0
+text = "Welcome to Delve!"
 align = 1
 valign = 1
+
+[node name="Bg" type="ColorRect" parent="GUI/Banner"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Settings" type="TextureButton" parent="GUI/Banner"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -9.0
+margin_top = 1.0
+margin_right = -2.0
+margin_bottom = -1.0
+texture_normal = ExtResource( 5 )
+
+[node name="SubBanner" type="ColorRect" parent="GUI"]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -9.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+
+[node name="Name" type="Label" parent="GUI/SubBanner"]
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_right = 45.0
+text = "Senan"
+valign = 1
+
+[node name="Title" type="ColorRect" parent="GUI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+
+[node name="Tap" type="Label" parent="GUI/Title"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -3.0
+margin_bottom = 4.0
+custom_colors/font_color_shadow = Color( 0.313726, 0.313726, 0.313726, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 1
+text = "TAP TO START"
+align = 1
+valign = 1
+
+[node name="Copyright" type="Label" parent="GUI/Title"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -13.0
+margin_bottom = -2.0
+custom_colors/font_color = Color( 0.313726, 0.313726, 0.313726, 1 )
+text = " Adam Bray [C] 2022"
+align = 1
+valign = 1
+
+[node name="Title" type="TextureRect" parent="GUI/Title"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.5
+margin_top = -65.0
+margin_right = 28.5
+margin_bottom = -50.0
+texture = ExtResource( 3 )
+
+[node name="Logo" type="TextureRect" parent="GUI/Title"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -26.0
+margin_top = -30.0
+margin_right = 26.0
+margin_bottom = -21.0
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/Title"]
+autoplay = "Flash"
+anims/Flash = SubResource( 1 )
+anims/RESET = SubResource( 2 )

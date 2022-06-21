@@ -8,6 +8,34 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "Action",
+"language": "GDScript",
+"path": "res://src/core/action.gd"
+}, {
+"base": "Button",
+"class": "ActionBtn",
+"language": "GDScript",
+"path": "res://src/battle/ActionBtn.gd"
+}, {
+"base": "Reference",
+"class": "Enums",
+"language": "GDScript",
+"path": "res://src/global/Enums.gd"
+}, {
+"base": "Node",
+"class": "Game",
+"language": "GDScript",
+"path": "res://src/core/Game.gd"
+} ]
+_global_script_class_icons={
+"Action": "",
+"ActionBtn": "",
+"Enums": "",
+"Game": ""
+}
+
 [application]
 
 config/name="Delve"
@@ -20,7 +48,7 @@ window/size/width=109
 window/size/height=192
 window/size/test_width=545
 window/size/test_height=960
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [global]
@@ -30,7 +58,7 @@ font=false
 [gui]
 
 theme/custom="res://assets/gui/default_theme.tres"
-theme/custom_font="res://assets/gui/Doraku.fnt"
+theme/custom_font="res://assets/gui/TinyBox.tres"
 
 [importer_defaults]
 
