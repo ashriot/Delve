@@ -16,7 +16,8 @@ gold = 10
 level = 0
 xp = 0
 unlocked = false
-initial_actions = [  ]
+initial_actions = {
+}
 perks = [  ]
 gears = [  ]
 specs = [  ]

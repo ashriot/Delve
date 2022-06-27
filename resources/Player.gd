@@ -1,7 +1,7 @@
 class_name Player
 extends Resource
 
-export var name: String
+export var title: String
 export var job_id: String
 export var level: int
 export var life: int
@@ -13,7 +13,15 @@ export var armor_initial: int
 export var mana: int
 export var mana_initial: int
 export var gold: int
-export (Dictionary) var action_dict
 
 
-var actions: Array
+func init(job: Job) -> void:
+	title = job.title
+	job_id = job.id
+	level = job.level
+	life_max = job.life
+	life = life_max
+	stamina_max = job.stamina
+	armor_initial = job.armor
+	mana_initial = job.mana
+	

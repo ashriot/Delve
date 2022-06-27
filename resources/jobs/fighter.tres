@@ -1,10 +1,7 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/Job.gd" type="Script" id=1]
 [ext_resource path="res://resources/perks/ToughnessFighter.tres" type="Resource" id=2]
-[ext_resource path="res://resources/actions/maces/Club.tres" type="Resource" id=3]
-[ext_resource path="res://resources/actions/swords/ShortSword.tres" type="Resource" id=4]
-[ext_resource path="res://resources/actions/shields/WoodenShield.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 1 )
@@ -20,7 +17,11 @@ gold = 10
 level = 0
 xp = 0
 unlocked = false
-initial_actions = [ ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ) ]
+initial_actions = {
+"club": 5,
+"short_sword": 3,
+"wooden_shield": 2
+}
 perks = [ ExtResource( 2 ) ]
 gears = [  ]
 specs = [  ]

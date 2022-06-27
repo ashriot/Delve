@@ -9,31 +9,33 @@ const THIEF := preload("res://resources/jobs/thief.tres")
 signal fade_done
 signal done_loading
 
+onready var settings := $GUI/SettingsMenu
 onready var battle := $GUI/Battle
 onready var main_menu := $GUI/MainMenu
 onready var overlay := $GUI/Overlay
 onready var fader := $GUI/Overlay/Fader
 
 var active_window: Window setget , get_active_window
-var save_data: SaveGame setget, get_save
+var save: SaveGame setget, get_save
 var profile_name: String setget set_profile_name, get_profile_name
 
 var _save: SaveGame
 var _cur_scene: Control
 var _active_windows: Array
-var _player: Player
 
 func _ready() -> void:
 	_create_or_load_save()
 	yield(self, "done_loading")
-	overlay.show()
+	settings.init()
+	battle.init(self)
 	main_menu.init(self)
+	overlay.show()
 	_cur_scene = main_menu
 	fade_in()
-	if _save.run:
+	if _save.deck:
 		print("Deck contents:")
-		for action in _save.run.deck.actions.keys():
-			print(action, " x", _save.run.deck.actions[action])
+		for action in _save.deck.actions.keys():
+			print(action, " x", _save.deck.actions[action])
 
 func _create_or_load_save() -> void:
 	if SaveGame.save_exists():
@@ -73,6 +75,22 @@ func create_new_data() -> void:
 func save_game() -> void:
 	print("Saving the game.")
 	_save.write_savegame()
+
+func start_game(job: Job) -> void:
+	_save.player = Player.new()
+	_save.player.init(job)
+	
+	_save.deck = Deck.new()
+	
+	for action in job.initial_actions.keys():
+		_save.deck.add_action(action, job.initial_actions[action])
+	
+	save_game()
+	
+	var enemy = load("res://resources/enemies/level_1/devil.tres")
+	change_scene(battle)
+	battle.setup(enemy)
+	yield(self, "fade_done")
 	
 func change_scene(scene: Control) -> void:
 	fade_out()
@@ -98,12 +116,14 @@ func fade_in() -> void:
 	fader.play("FadeIn")
 	yield(fader, "animation_finished")
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	emit_signal("fade_done")
 	
 func fade_out() -> void:
 	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
 	fader.play("FadeOut")
 	yield(fader, "animation_finished")
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	emit_signal("fade_done")
 
 func get_active_window() -> Window:
 	return _active_windows.back()
@@ -120,4 +140,5 @@ func get_profile_name() -> String:
 	return ""
 
 func _on_SettingsBtn_pressed():
+	Ac.select()
 	$GUI/SettingsMenu.show()

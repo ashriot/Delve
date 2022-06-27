@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -13,5 +14,6 @@ stamina = 0
 armor = 0
 mana = 0
 bonus_gold = 0
+texture = ExtResource( 2 )
 actions = {
 }

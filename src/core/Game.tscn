@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://src/core/Game.gd" type="Script" id=2]
 [ext_resource path="res://assets/images/meta/title.png" type="Texture" id=3]
@@ -32,7 +32,6 @@
 [ext_resource path="res://resources/jobs/sorcerer.tres" type="Resource" id=31]
 [ext_resource path="res://assets/gui/img/gem_small.png" type="Texture" id=32]
 [ext_resource path="res://src/battle/Battle.tscn" type="PackedScene" id=34]
-[ext_resource path="res://src/battle/Battle.gd" type="Script" id=37]
 
 [sub_resource type="Animation" id=7]
 resource_name = "Flash"
@@ -120,7 +119,6 @@ script = ExtResource( 2 )
 visible = false
 
 [node name="GUI" type="CanvasLayer" parent="."]
-script = ExtResource( 37 )
 
 [node name="MainMenu" parent="GUI" instance=ExtResource( 15 )]
 script = ExtResource( 13 )
@@ -136,9 +134,11 @@ margin_bottom = 163.0
 margin_right = 97.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 0, 21 )
+disabled = true
 text = "Continue Game"
 
 [node name="Icon" type="TextureRect" parent="GUI/MainMenu/Btns/ContinueBtn"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
 anchor_bottom = 1.0
 margin_left = 3.0
 margin_top = 7.0
@@ -149,16 +149,16 @@ texture = ExtResource( 25 )
 [node name="NewBtn" type="Button" parent="GUI/MainMenu/Btns"]
 margin_top = 25.0
 margin_right = 97.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 15 )
-text = "Start New Game"
+margin_bottom = 38.0
+rect_min_size = Vector2( 0, 13 )
+text = "New Game"
 
 [node name="Icon" type="TextureRect" parent="GUI/MainMenu/Btns/NewBtn"]
 anchor_bottom = 1.0
 margin_left = 3.0
-margin_top = 4.0
+margin_top = 3.0
 margin_right = 10.0
-margin_bottom = -4.0
+margin_bottom = -3.0
 texture = ExtResource( 26 )
 
 [node name="Logo" type="TextureRect" parent="GUI/MainMenu"]
@@ -304,6 +304,7 @@ expand = true
 stretch_mode = 4
 
 [node name="NewGame" parent="GUI/MainMenu" instance=ExtResource( 15 )]
+visible = false
 margin_bottom = -16.0
 script = ExtResource( 28 )
 banner = "Choose a Class"
@@ -895,6 +896,7 @@ stretch_mode = 3
 visible = false
 script = ExtResource( 16 )
 banner = "Settings"
+translucent = true
 
 [node name="CloseBtn" type="TextureButton" parent="GUI/SettingsMenu"]
 anchor_left = 1.0

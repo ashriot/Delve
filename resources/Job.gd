@@ -15,7 +15,7 @@ export var xp: int
 
 export var unlocked := false
 
-export (Array, Resource) var initial_actions
+export (Dictionary) var initial_actions
 export (Array, Resource) var perks
 export (Array, Resource) var gears
 export (Array, Resource) var specs

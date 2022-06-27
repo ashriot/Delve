@@ -26,7 +26,7 @@ var _job_data: Dictionary
 func init(game: Game) -> void:
 	perks_window.hide_instantly()
 	_game = game
-	_job_data = game.save_data.job_data
+	_job_data = game.save.job_data
 	set_job_data()
 	set_cur_job(0)
 
@@ -92,7 +92,7 @@ func _on_Perks_pressed():
 
 func _on_Delve_pressed():
 	Ac.confirm()
-	_game.start_battle()
+	_game.start_game(_cur_job)
 
 
 func _on_Prev_pressed():

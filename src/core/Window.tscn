@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/core/Window.gd" type="Script" id=1]
 
@@ -6,33 +6,17 @@
 resource_name = "Flash"
 length = 1.2
 loop = true
-step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Bg/Banner/Label:modulate")
+tracks/0/path = NodePath("Banner/Label:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.6, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Bg/Banner/Label:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="Window" type="Control"]
@@ -44,14 +28,16 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Banner" type="ColorRect" parent="Bg"]
+[node name="Banner" type="ColorRect" parent="."]
 anchor_right = 1.0
 margin_bottom = 9.0
 color = Color( 0.152941, 0.152941, 0.152941, 1 )
 
-[node name="Label" type="Label" parent="Bg/Banner"]
-modulate = Color( 1, 1, 1, 0 )
+[node name="Label" type="Label" parent="Banner"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Banner"
@@ -62,4 +48,3 @@ valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Flash = SubResource( 1 )
-anims/RESET = SubResource( 2 )

@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/Action.gd"
 }, {
-"base": "Button",
+"base": "BattleControl",
 "class": "ActionBtn",
 "language": "GDScript",
 "path": "res://src/battle/ActionBtn.gd"
@@ -23,6 +23,11 @@ _global_script_classes=[ {
 "class": "Battle",
 "language": "GDScript",
 "path": "res://src/battle/Battle.gd"
+}, {
+"base": "Control",
+"class": "BattleControl",
+"language": "GDScript",
+"path": "res://src/battle/BattleControl.gd"
 }, {
 "base": "Resource",
 "class": "Deck",
@@ -83,6 +88,7 @@ _global_script_class_icons={
 "Action": "",
 "ActionBtn": "",
 "Battle": "",
+"BattleControl": "",
 "Deck": "",
 "Enemy": "",
 "Enums": "",

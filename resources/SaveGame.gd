@@ -11,7 +11,8 @@ export var version := 1
 
 export var profile_name: String
 export var job_data: Dictionary
-export var run: Resource
+export var player: Resource
+export var deck: Resource
 
 export var map_name := ""
 export var global_position := Vector2.ZERO

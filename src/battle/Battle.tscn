@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://src/core/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/gui/img/card_front.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=2]
 [ext_resource path="res://assets/gui/img/heart_white.png" type="Texture" id=3]
 [ext_resource path="res://assets/gui/img/shield_white.png" type="Texture" id=4]
@@ -9,34 +9,82 @@
 [ext_resource path="res://assets/gui/img/square.png" type="Texture" id=7]
 [ext_resource path="res://assets/gui/img/heart_black.png" type="Texture" id=8]
 [ext_resource path="res://assets/gui/elements/panel_white.tres" type="StyleBox" id=9]
-[ext_resource path="res://src/battle/ActionBtn.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/gui/img/card_back.png" type="Texture" id=10]
 [ext_resource path="res://assets/gui/img/button_bg.png" type="Texture" id=11]
 [ext_resource path="res://src/battle/ItemBtn.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/gui/img/shield_black.png" type="Texture" id=13]
 [ext_resource path="res://assets/gui/img/star_black.png" type="Texture" id=14]
 [ext_resource path="res://assets/images/sprites/icons.png" type="Texture" id=15]
 [ext_resource path="res://assets/images/sprites/conditions.png" type="Texture" id=16]
-[ext_resource path="res://src/core/Window.gd" type="Script" id=17]
 [ext_resource path="res://src/battle/Battle.gd" type="Script" id=18]
 
-[node name="Battle" instance=ExtResource( 1 )]
+[sub_resource type="Animation" id=1]
+resource_name = "Flash"
+length = 1.2
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Banner/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Banner/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Battle" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 18 )
 
-[node name="EnemyPanel" type="Panel" parent="Bg" index="0"]
+[node name="Bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Flash = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="EnemyPanel" type="Panel" parent="."]
 anchor_right = 1.0
 margin_left = 11.0
 margin_right = -11.0
 margin_bottom = 67.0
 custom_styles/panel = ExtResource( 9 )
 
-[node name="Enemy" type="Sprite" parent="Bg/EnemyPanel" index="0"]
+[node name="Enemy" type="Sprite" parent="EnemyPanel"]
 position = Vector2( 20, 10 )
 texture = ExtResource( 2 )
 centered = false
 hframes = 9
 frame = 2
 
-[node name="Life" type="TextureRect" parent="Bg/EnemyPanel" index="1"]
+[node name="Life" type="TextureRect" parent="EnemyPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -10.5
@@ -45,7 +93,7 @@ margin_right = -5.5
 margin_bottom = 15.0
 texture = ExtResource( 8 )
 
-[node name="Percent" type="TextureProgress" parent="Bg/EnemyPanel/Life" index="0"]
+[node name="Percent" type="TextureProgress" parent="EnemyPanel/Life"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -60,17 +108,19 @@ tint_under = Color( 0.588235, 0.588235, 0.588235, 1 )
 tint_progress = Color( 0.152941, 0.152941, 0.152941, 1 )
 nine_patch_stretch = true
 
-[node name="Value" type="RichTextLabel" parent="Bg/EnemyPanel/Life" index="1"]
-self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
+[node name="Value" type="RichTextLabel" parent="EnemyPanel/Life"]
 margin_left = 6.0
 margin_top = -1.0
-margin_right = 18.0
+margin_right = 22.0
 margin_bottom = 5.0
-bbcode_text = "145"
-text = "145"
+bbcode_enabled = true
+bbcode_text = "[color=#55272727]0[/color][color=#ff272727]25[/color]
+"
+text = "025
+"
 scroll_active = false
 
-[node name="Armor" type="TextureRect" parent="Bg/EnemyPanel" index="2"]
+[node name="Armor" type="TextureRect" parent="EnemyPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -29.5
@@ -79,18 +129,17 @@ margin_right = -24.5
 margin_bottom = 17.0
 texture = ExtResource( 13 )
 
-[node name="Value" type="RichTextLabel" parent="Bg/EnemyPanel/Armor" index="0"]
-self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
+[node name="Value" type="RichTextLabel" parent="EnemyPanel/Armor"]
 margin_left = 6.0
 margin_top = -1.0
 margin_right = 18.0
 margin_bottom = 5.0
 bbcode_enabled = true
-bbcode_text = "35"
-text = "35"
+bbcode_text = "[color=#55272727]0[/color][color=#ff272727]25[/color]"
+text = "025"
 scroll_active = false
 
-[node name="Mana" type="TextureRect" parent="Bg/EnemyPanel" index="3"]
+[node name="Mana" type="TextureRect" parent="EnemyPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 13.5
@@ -99,8 +148,7 @@ margin_right = 18.5
 margin_bottom = 17.0
 texture = ExtResource( 14 )
 
-[node name="Value" type="RichTextLabel" parent="Bg/EnemyPanel/Mana" index="0"]
-self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
+[node name="Value" type="RichTextLabel" parent="EnemyPanel/Mana"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 1.0
@@ -108,59 +156,60 @@ margin_top = -1.0
 margin_right = 13.0
 margin_bottom = 5.0
 bbcode_enabled = true
-bbcode_text = "12"
-text = "12"
+bbcode_text = "[color=#55272727]0[/color][color=#ff272727]25[/color]"
+text = "025"
 scroll_active = false
 
-[node name="Intent" type="HBoxContainer" parent="Bg/EnemyPanel" index="4"]
-modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+[node name="Intent" type="HBoxContainer" parent="EnemyPanel"]
+modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -42.5
-margin_top = -16.0
+margin_top = -15.0
 margin_right = 42.5
-margin_bottom = -10.0
+margin_bottom = -9.0
 custom_constants/separation = 0
 alignment = 1
 
-[node name="Effect" type="Control" parent="Bg/EnemyPanel/Intent" index="0"]
+[node name="Effect" type="Control" parent="EnemyPanel/Intent"]
+visible = false
 margin_left = 31.0
 margin_right = 36.0
 margin_bottom = 6.0
 rect_min_size = Vector2( 5, 5 )
 
-[node name="Sprite" type="Sprite" parent="Bg/EnemyPanel/Intent/Effect" index="0"]
-position = Vector2( 0, 1 )
-texture = ExtResource( 15 )
+[node name="Sprite" type="Sprite" parent="EnemyPanel/Intent/Effect"]
+position = Vector2( -4, -1 )
+texture = ExtResource( 16 )
 centered = false
 hframes = 10
 vframes = 10
-frame = 10
+frame = 4
 
-[node name="Buffer" type="ColorRect" parent="Bg/EnemyPanel/Intent" index="1"]
-margin_left = 36.0
-margin_right = 37.0
+[node name="Buffer" type="ColorRect" parent="EnemyPanel/Intent"]
+margin_left = 33.0
+margin_right = 34.0
 margin_bottom = 6.0
 rect_min_size = Vector2( 1, 6 )
 color = Color( 1, 1, 1, 0 )
 
-[node name="Value" type="Label" parent="Bg/EnemyPanel/Intent" index="2"]
-margin_left = 37.0
-margin_right = 49.0
+[node name="Value" type="Label" parent="EnemyPanel/Intent"]
+margin_left = 34.0
+margin_right = 46.0
 margin_bottom = 6.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "4x3"
 align = 2
 
-[node name="Type" type="Control" parent="Bg/EnemyPanel/Intent" index="3"]
-margin_left = 49.0
-margin_right = 54.0
+[node name="Type" type="Control" parent="EnemyPanel/Intent"]
+margin_left = 46.0
+margin_right = 51.0
 margin_bottom = 6.0
 rect_min_size = Vector2( 5, 5 )
 
-[node name="Sprite" type="Sprite" parent="Bg/EnemyPanel/Intent/Type" index="0"]
+[node name="Sprite" type="Sprite" parent="EnemyPanel/Intent/Type"]
 position = Vector2( 0, 1 )
 texture = ExtResource( 15 )
 centered = false
@@ -168,30 +217,30 @@ hframes = 10
 vframes = 10
 frame = 10
 
-[node name="PlayerPanel" type="Panel" parent="Bg" index="1"]
+[node name="PlayerPanel" type="Panel" parent="."]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 14.0
-margin_top = -37.0
-margin_right = -14.0
-margin_bottom = -17.0
+margin_left = 16.0
+margin_top = -35.0
+margin_right = -16.0
+margin_bottom = -16.0
 
-[node name="Life" type="TextureRect" parent="Bg/PlayerPanel" index="0"]
+[node name="Life" type="TextureRect" parent="PlayerPanel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -16.5
-margin_top = -6.0
+margin_top = -6.5
 margin_right = -11.5
-margin_bottom = -1.0
+margin_bottom = -1.5
 texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Value" type="RichTextLabel" parent="Bg/PlayerPanel/Life" index="0"]
+[node name="Value" type="RichTextLabel" parent="PlayerPanel/Life"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 6.0
@@ -203,7 +252,7 @@ bbcode_text = "[color=#444]0[/color]45/120"
 text = "045/120"
 scroll_active = false
 
-[node name="Percent" type="TextureProgress" parent="Bg/PlayerPanel/Life" index="1"]
+[node name="Percent" type="TextureProgress" parent="PlayerPanel/Life"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -218,15 +267,15 @@ tint_under = Color( 0.313726, 0.313726, 0.313726, 1 )
 tint_progress = Color( 0.760784, 0.760784, 0.760784, 1 )
 nine_patch_stretch = true
 
-[node name="Armor" type="Control" parent="Bg/PlayerPanel" index="1"]
+[node name="Armor" type="Control" parent="PlayerPanel"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 4.0
+margin_left = 3.0
 margin_top = -5.5
-margin_right = 22.0
+margin_right = 21.0
 margin_bottom = -0.5
 
-[node name="Icon" type="TextureRect" parent="Bg/PlayerPanel/Armor" index="0"]
+[node name="Icon" type="TextureRect" parent="PlayerPanel/Armor"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_top = -2.5
@@ -234,7 +283,7 @@ margin_right = 5.0
 margin_bottom = 2.5
 texture = ExtResource( 4 )
 
-[node name="Value" type="RichTextLabel" parent="Bg/PlayerPanel/Armor/Icon" index="0"]
+[node name="Value" type="RichTextLabel" parent="PlayerPanel/Armor/Icon"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 6.0
@@ -246,22 +295,22 @@ bbcode_text = "[color=#444]00[/color]5"
 text = "005"
 scroll_active = false
 
-[node name="Mana" type="Control" parent="Bg/PlayerPanel" index="2"]
+[node name="Mana" type="Control" parent="PlayerPanel"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -21.0
+margin_left = -20.0
 margin_top = -5.5
-margin_right = -4.0
+margin_right = -3.0
 margin_bottom = -0.5
 
-[node name="Icon" type="TextureRect" parent="Bg/PlayerPanel/Mana" index="0"]
+[node name="Icon" type="TextureRect" parent="PlayerPanel/Mana"]
 margin_right = 5.0
 margin_bottom = 5.0
 texture = ExtResource( 5 )
 
-[node name="Value" type="RichTextLabel" parent="Bg/PlayerPanel/Mana/Icon" index="0"]
+[node name="Value" type="RichTextLabel" parent="PlayerPanel/Mana/Icon"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 6.0
@@ -273,7 +322,7 @@ bbcode_text = "[color=#444]0[/color]20"
 text = "020"
 scroll_active = false
 
-[node name="Stamina" type="Control" parent="Bg/PlayerPanel" index="3"]
+[node name="Stamina" type="Control" parent="PlayerPanel"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -283,7 +332,7 @@ margin_top = -6.0
 margin_right = 37.5
 margin_bottom = -1.0
 
-[node name="StaminaMax" type="TextureRect" parent="Bg/PlayerPanel/Stamina" index="0"]
+[node name="StaminaMax" type="TextureRect" parent="PlayerPanel/Stamina"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 0.156863 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -295,7 +344,7 @@ texture = ExtResource( 6 )
 expand = true
 stretch_mode = 2
 
-[node name="StaminaCur" type="TextureRect" parent="Bg/PlayerPanel/Stamina" index="1"]
+[node name="StaminaCur" type="TextureRect" parent="PlayerPanel/Stamina"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -307,78 +356,118 @@ texture = ExtResource( 6 )
 expand = true
 stretch_mode = 2
 
-[node name="EnemyTraits" type="VBoxContainer" parent="Bg" index="2"]
-margin_left = 1.0
-margin_top = 10.0
-margin_right = 10.0
-margin_bottom = 60.0
-custom_constants/separation = 1
+[node name="DrawPileIcon" type="NinePatchRect" parent="."]
+margin_left = 2.0
+margin_top = 61.0
+margin_right = 15.0
+margin_bottom = 80.0
+texture = ExtResource( 1 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
 
-[node name="Trait" type="Control" parent="Bg/EnemyTraits" index="0"]
+[node name="DrawPile" type="VBoxContainer" parent="DrawPileIcon"]
+visible = false
+margin_left = 5.0
+margin_top = 11.0
+margin_right = 104.0
+margin_bottom = 56.0
+
+[node name="Label" type="Label" parent="DrawPileIcon"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+custom_colors/font_color = Color( 0.152941, 0.152941, 0.152941, 1 )
+text = "00"
+align = 1
+valign = 1
+
+[node name="DiscardPileIcon" type="NinePatchRect" parent="."]
+margin_left = 94.0
+margin_top = 61.0
+margin_right = 107.0
+margin_bottom = 80.0
+texture = ExtResource( 10 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="DiscardPile" type="VBoxContainer" parent="DiscardPileIcon"]
+visible = false
+margin_left = 5.0
+margin_top = 11.0
+margin_right = 104.0
+margin_bottom = 56.0
+
+[node name="Label" type="Label" parent="DiscardPileIcon"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+text = "00"
+align = 1
+valign = 1
+
+[node name="EnemyTraits" type="VBoxContainer" parent="."]
+margin_left = 1.0
+margin_top = 11.0
+margin_right = 10.0
+margin_bottom = 61.0
+custom_constants/separation = 2
+
+[node name="Trait" type="Control" parent="EnemyTraits"]
 margin_right = 9.0
 margin_bottom = 9.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/EnemyTraits/Trait" index="0"]
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
 hframes = 10
 vframes = 10
 
-[node name="Trait2" type="Control" parent="Bg/EnemyTraits" index="1"]
-margin_top = 10.0
+[node name="Trait2" type="Control" parent="EnemyTraits"]
+margin_top = 11.0
 margin_right = 9.0
-margin_bottom = 19.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/EnemyTraits/Trait2" index="0"]
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait2"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
 hframes = 10
 vframes = 10
 
-[node name="Trait3" type="Control" parent="Bg/EnemyTraits" index="2"]
-margin_top = 20.0
+[node name="Trait3" type="Control" parent="EnemyTraits"]
+margin_top = 22.0
 margin_right = 9.0
-margin_bottom = 29.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/EnemyTraits/Trait3" index="0"]
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait3"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
 hframes = 10
 vframes = 10
 
-[node name="Trait4" type="Control" parent="Bg/EnemyTraits" index="3"]
-margin_top = 30.0
+[node name="Trait4" type="Control" parent="EnemyTraits"]
+margin_top = 33.0
 margin_right = 9.0
-margin_bottom = 39.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/EnemyTraits/Trait4" index="0"]
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait4"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
 hframes = 10
 vframes = 10
 
-[node name="Trait5" type="Control" parent="Bg/EnemyTraits" index="4"]
-margin_top = 40.0
-margin_right = 9.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 9, 9 )
-
-[node name="Sprite" type="Sprite" parent="Bg/EnemyTraits/Trait5" index="0"]
-self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
-texture = ExtResource( 16 )
-centered = false
-hframes = 10
-vframes = 10
-
-[node name="Debuffs" type="HBoxContainer" parent="Bg" index="3"]
+[node name="Debuffs" type="HBoxContainer" parent="."]
 visible = false
 anchor_left = 1.0
 anchor_top = 0.5
@@ -391,13 +480,13 @@ margin_bottom = -3.0
 custom_constants/separation = 1
 alignment = 2
 
-[node name="Condition" type="Control" parent="Bg/Debuffs" index="0"]
+[node name="Condition" type="Control" parent="Debuffs"]
 margin_left = 32.0
 margin_right = 41.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/Debuffs/Condition" index="0"]
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
@@ -405,7 +494,7 @@ hframes = 10
 vframes = 10
 frame = 51
 
-[node name="Label" type="Label" parent="Bg/Debuffs/Condition" index="1"]
+[node name="Label" type="Label" parent="Debuffs/Condition"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -11.0
@@ -418,13 +507,13 @@ custom_constants/shadow_as_outline = 1
 text = "9"
 align = 2
 
-[node name="Condition2" type="Control" parent="Bg/Debuffs" index="1"]
+[node name="Condition2" type="Control" parent="Debuffs"]
 margin_left = 42.0
 margin_right = 51.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/Debuffs/Condition2" index="0"]
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition2"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
@@ -432,7 +521,7 @@ hframes = 10
 vframes = 10
 frame = 3
 
-[node name="Label" type="Label" parent="Bg/Debuffs/Condition2" index="1"]
+[node name="Label" type="Label" parent="Debuffs/Condition2"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -11.0
@@ -445,13 +534,13 @@ custom_constants/shadow_as_outline = 1
 text = "9"
 align = 2
 
-[node name="Condition3" type="Control" parent="Bg/Debuffs" index="2"]
+[node name="Condition3" type="Control" parent="Debuffs"]
 margin_left = 52.0
 margin_right = 61.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/Debuffs/Condition3" index="0"]
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition3"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
@@ -459,7 +548,7 @@ hframes = 10
 vframes = 10
 frame = 3
 
-[node name="Label" type="Label" parent="Bg/Debuffs/Condition3" index="1"]
+[node name="Label" type="Label" parent="Debuffs/Condition3"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -11.0
@@ -472,13 +561,13 @@ custom_constants/shadow_as_outline = 1
 text = "9"
 align = 2
 
-[node name="Condition4" type="Control" parent="Bg/Debuffs" index="3"]
+[node name="Condition4" type="Control" parent="Debuffs"]
 margin_left = 62.0
 margin_right = 71.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/Debuffs/Condition4" index="0"]
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition4"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
@@ -486,7 +575,7 @@ hframes = 10
 vframes = 10
 frame = 3
 
-[node name="Label" type="Label" parent="Bg/Debuffs/Condition4" index="1"]
+[node name="Label" type="Label" parent="Debuffs/Condition4"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -11.0
@@ -499,13 +588,13 @@ custom_constants/shadow_as_outline = 1
 text = "9"
 align = 2
 
-[node name="Condition5" type="Control" parent="Bg/Debuffs" index="4"]
+[node name="Condition5" type="Control" parent="Debuffs"]
 margin_left = 72.0
 margin_right = 81.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 9, 9 )
 
-[node name="Sprite" type="Sprite" parent="Bg/Debuffs/Condition5" index="0"]
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition5"]
 self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 texture = ExtResource( 16 )
 centered = false
@@ -513,7 +602,7 @@ hframes = 10
 vframes = 10
 frame = 3
 
-[node name="Label" type="Label" parent="Bg/Debuffs/Condition5" index="1"]
+[node name="Label" type="Label" parent="Debuffs/Condition5"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -11.0
@@ -526,14 +615,14 @@ custom_constants/shadow_as_outline = 1
 text = "9"
 align = 2
 
-[node name="Hand" type="VBoxContainer" parent="Bg" index="4"]
+[node name="Hand" type="VBoxContainer" parent="."]
 margin_left = 5.0
 margin_top = 96.0
 margin_right = 104.0
 margin_bottom = 173.0
 custom_constants/separation = 3
 
-[node name="Pos1" type="NinePatchRect" parent="Bg/Hand" index="0"]
+[node name="Pos1" type="NinePatchRect" parent="Hand"]
 self_modulate = Color( 1, 1, 1, 0.294118 )
 margin_right = 99.0
 margin_bottom = 13.0
@@ -544,9 +633,7 @@ patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="ActionBtn" parent="Bg/Hand/Pos1" index="0" instance=ExtResource( 10 )]
-
-[node name="Pos2" type="NinePatchRect" parent="Bg/Hand" index="1"]
+[node name="Pos2" type="NinePatchRect" parent="Hand"]
 self_modulate = Color( 1, 1, 1, 0.294118 )
 margin_top = 16.0
 margin_right = 99.0
@@ -558,9 +645,7 @@ patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="ActionBtn2" parent="Bg/Hand/Pos2" index="0" instance=ExtResource( 10 )]
-
-[node name="Pos3" type="NinePatchRect" parent="Bg/Hand" index="2"]
+[node name="Pos3" type="NinePatchRect" parent="Hand"]
 self_modulate = Color( 1, 1, 1, 0.294118 )
 margin_top = 32.0
 margin_right = 99.0
@@ -572,7 +657,7 @@ patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="Pos4" type="NinePatchRect" parent="Bg/Hand" index="3"]
+[node name="Pos4" type="NinePatchRect" parent="Hand"]
 self_modulate = Color( 1, 1, 1, 0.294118 )
 margin_top = 48.0
 margin_right = 99.0
@@ -584,7 +669,7 @@ patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="Pos5" type="NinePatchRect" parent="Bg/Hand" index="4"]
+[node name="Pos5" type="NinePatchRect" parent="Hand"]
 self_modulate = Color( 1, 1, 1, 0.294118 )
 margin_top = 64.0
 margin_right = 99.0
@@ -596,7 +681,7 @@ patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="Items" type="HBoxContainer" parent="Bg" index="5"]
+[node name="Items" type="HBoxContainer" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
@@ -605,46 +690,46 @@ margin_right = 71.0
 margin_bottom = -1.0
 custom_constants/separation = 1
 
-[node name="Pos1" type="Control" parent="Bg/Items" index="0"]
+[node name="Pos1" type="Control" parent="Items"]
 margin_right = 16.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 16, 16 )
 
-[node name="Item" parent="Bg/Items/Pos1" index="0" instance=ExtResource( 12 )]
+[node name="Item" parent="Items/Pos1" instance=ExtResource( 12 )]
 margin_top = 0.0
 margin_bottom = 16.0
 
-[node name="Pos2" type="Control" parent="Bg/Items" index="1"]
+[node name="Pos2" type="Control" parent="Items"]
 margin_left = 17.0
 margin_right = 33.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 16, 16 )
 
-[node name="Item2" parent="Bg/Items/Pos2" index="0" instance=ExtResource( 12 )]
+[node name="Item2" parent="Items/Pos2" instance=ExtResource( 12 )]
 margin_top = 0.0
 margin_bottom = 16.0
 
-[node name="Pos3" type="Control" parent="Bg/Items" index="2"]
+[node name="Pos3" type="Control" parent="Items"]
 margin_left = 34.0
 margin_right = 50.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 16, 16 )
 
-[node name="Item3" parent="Bg/Items/Pos3" index="0" instance=ExtResource( 12 )]
+[node name="Item3" parent="Items/Pos3" instance=ExtResource( 12 )]
 margin_top = 0.0
 margin_bottom = 16.0
 
-[node name="Pos4" type="Control" parent="Bg/Items" index="3"]
+[node name="Pos4" type="Control" parent="Items"]
 margin_left = 51.0
 margin_right = 67.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 16, 16 )
 
-[node name="Item4" parent="Bg/Items/Pos4" index="0" instance=ExtResource( 12 )]
+[node name="Item4" parent="Items/Pos4" instance=ExtResource( 12 )]
 margin_top = 0.0
 margin_bottom = 16.0
 
-[node name="EndTurn" type="Button" parent="Bg" index="6"]
+[node name="EndTurn" type="Button" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -655,7 +740,15 @@ margin_right = -3.0
 margin_bottom = -2.0
 text = "End Turn"
 
-[node name="Window" type="Control" parent="Bg" index="7"]
+[node name="Banner" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+
+[node name="Label" type="Label" parent="Banner"]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 17 )
+text = "Banner"
+align = 1
+valign = 1
