@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/Enemy.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = "devil"
+title = "Dev'lil"
+desc = "A tiny, li'l nuisance."
+level = 1
+life = 25
+stamina = 0
+armor = 0
+mana = 0
+bonus_gold = 0
+actions = {
+}

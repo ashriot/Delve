@@ -202,7 +202,7 @@ texture = ExtResource( 2 )
 centered = false
 hframes = 10
 vframes = 10
-frame = 13
+frame = 11
 
 [node name="Qty" type="Label" parent="."]
 visible = false

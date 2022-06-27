@@ -1,0 +1,666 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://src/core/Window.gd" type="Script" id=1]
+[ext_resource path="res://src/battle/ItemBtn.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/battle/ActionBtn.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/gui/elements/panel_white.tres" type="StyleBox" id=4]
+[ext_resource path="res://src/battle/Battle.gd" type="Script" id=5]
+[ext_resource path="res://assets/images/sprites/conditions.png" type="Texture" id=6]
+[ext_resource path="res://assets/gui/img/star_white.png" type="Texture" id=7]
+[ext_resource path="res://assets/gui/img/shield_white.png" type="Texture" id=8]
+[ext_resource path="res://assets/gui/img/shield_black.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/sprites/icons.png" type="Texture" id=10]
+[ext_resource path="res://assets/gui/img/heart_white.png" type="Texture" id=11]
+[ext_resource path="res://assets/gui/img/heart_black.png" type="Texture" id=12]
+[ext_resource path="res://assets/gui/img/button_bg.png" type="Texture" id=13]
+[ext_resource path="res://assets/gui/img/square.png" type="Texture" id=14]
+[ext_resource path="res://assets/gui/img/ap_texture.png" type="Texture" id=15]
+[ext_resource path="res://assets/gui/img/star_black.png" type="Texture" id=16]
+[ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=17]
+
+[node name="Battle" type="Control"]
+margin_right = 109.0
+margin_bottom = 192.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="EnemyTraits" type="VBoxContainer" parent="."]
+visible = false
+margin_left = 1.0
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 60.0
+custom_constants/separation = 1
+
+[node name="Trait" type="Control" parent="EnemyTraits"]
+margin_right = 9.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+
+[node name="Trait2" type="Control" parent="EnemyTraits"]
+margin_top = 10.0
+margin_right = 9.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait2"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+
+[node name="Trait3" type="Control" parent="EnemyTraits"]
+margin_top = 20.0
+margin_right = 9.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait3"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+
+[node name="Trait4" type="Control" parent="EnemyTraits"]
+margin_top = 30.0
+margin_right = 9.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait4"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+
+[node name="Trait5" type="Control" parent="EnemyTraits"]
+margin_top = 40.0
+margin_right = 9.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="EnemyTraits/Trait5"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+
+[node name="EnemyPanel" type="Panel" parent="."]
+anchor_right = 1.0
+margin_left = 11.0
+margin_right = -11.0
+margin_bottom = 67.0
+custom_styles/panel = ExtResource( 4 )
+
+[node name="Enemy" type="Sprite" parent="EnemyPanel"]
+position = Vector2( 20, 10 )
+texture = ExtResource( 17 )
+centered = false
+hframes = 9
+frame = 2
+
+[node name="Life" type="TextureRect" parent="EnemyPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -10.5
+margin_top = 10.0
+margin_right = -5.5
+margin_bottom = 15.0
+texture = ExtResource( 12 )
+
+[node name="Percent" type="TextureProgress" parent="EnemyPanel/Life"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 1.0
+margin_right = 12.0
+margin_bottom = 2.0
+value = 50.0
+texture_under = ExtResource( 14 )
+texture_progress = ExtResource( 14 )
+tint_under = Color( 0.588235, 0.588235, 0.588235, 1 )
+tint_progress = Color( 0.152941, 0.152941, 0.152941, 1 )
+nine_patch_stretch = true
+
+[node name="Value" type="RichTextLabel" parent="EnemyPanel/Life"]
+self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
+margin_left = 6.0
+margin_top = -1.0
+margin_right = 18.0
+margin_bottom = 5.0
+bbcode_text = "145"
+text = "145"
+scroll_active = false
+
+[node name="Armor" type="TextureRect" parent="EnemyPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -29.5
+margin_top = 12.0
+margin_right = -24.5
+margin_bottom = 17.0
+texture = ExtResource( 9 )
+
+[node name="Value" type="RichTextLabel" parent="EnemyPanel/Armor"]
+self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
+margin_left = 6.0
+margin_top = -1.0
+margin_right = 18.0
+margin_bottom = 5.0
+bbcode_enabled = true
+bbcode_text = "35"
+text = "35"
+scroll_active = false
+
+[node name="Mana" type="TextureRect" parent="EnemyPanel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 13.5
+margin_top = 12.0
+margin_right = 18.5
+margin_bottom = 17.0
+texture = ExtResource( 16 )
+
+[node name="Value" type="RichTextLabel" parent="EnemyPanel/Mana"]
+self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 1.0
+margin_top = -1.0
+margin_right = 13.0
+margin_bottom = 5.0
+bbcode_enabled = true
+bbcode_text = "12"
+text = "12"
+scroll_active = false
+
+[node name="Intent" type="HBoxContainer" parent="EnemyPanel"]
+modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -42.5
+margin_top = -16.0
+margin_right = 42.5
+margin_bottom = -10.0
+custom_constants/separation = 0
+alignment = 1
+
+[node name="Effect" type="Control" parent="EnemyPanel/Intent"]
+margin_left = 31.0
+margin_right = 36.0
+margin_bottom = 6.0
+rect_min_size = Vector2( 5, 5 )
+
+[node name="Sprite" type="Sprite" parent="EnemyPanel/Intent/Effect"]
+position = Vector2( 0, 1 )
+texture = ExtResource( 10 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 10
+
+[node name="Buffer" type="ColorRect" parent="EnemyPanel/Intent"]
+margin_left = 36.0
+margin_right = 37.0
+margin_bottom = 6.0
+rect_min_size = Vector2( 1, 6 )
+color = Color( 1, 1, 1, 0 )
+
+[node name="Value" type="Label" parent="EnemyPanel/Intent"]
+margin_left = 37.0
+margin_right = 49.0
+margin_bottom = 6.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "4x3"
+align = 2
+
+[node name="Type" type="Control" parent="EnemyPanel/Intent"]
+margin_left = 49.0
+margin_right = 54.0
+margin_bottom = 6.0
+rect_min_size = Vector2( 5, 5 )
+
+[node name="Sprite" type="Sprite" parent="EnemyPanel/Intent/Type"]
+position = Vector2( 0, 1 )
+texture = ExtResource( 10 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 10
+
+[node name="PlayerPanel" type="Panel" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 14.0
+margin_top = -37.0
+margin_right = -14.0
+margin_bottom = -17.0
+
+[node name="HP" type="TextureRect" parent="PlayerPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.5
+margin_top = -6.0
+margin_right = -11.5
+margin_bottom = -1.0
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP" type="RichTextLabel" parent="PlayerPanel/HP"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 6.0
+margin_top = -3.5
+margin_right = 34.0
+margin_bottom = 3.5
+bbcode_enabled = true
+bbcode_text = "[color=#444]0[/color]45/120"
+text = "045/120"
+scroll_active = false
+
+[node name="TextureProgress" type="TextureProgress" parent="PlayerPanel/HP"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 1.0
+margin_right = 28.0
+margin_bottom = 2.0
+value = 50.0
+texture_under = ExtResource( 14 )
+texture_progress = ExtResource( 14 )
+tint_under = Color( 0.313726, 0.313726, 0.313726, 1 )
+tint_progress = Color( 0.760784, 0.760784, 0.760784, 1 )
+nine_patch_stretch = true
+
+[node name="Armor" type="Control" parent="PlayerPanel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = -5.5
+margin_right = 22.0
+margin_bottom = -0.5
+
+[node name="Icon" type="TextureRect" parent="PlayerPanel/Armor"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -2.5
+margin_right = 5.0
+margin_bottom = 2.5
+texture = ExtResource( 8 )
+
+[node name="Armor" type="RichTextLabel" parent="PlayerPanel/Armor/Icon"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 6.0
+margin_top = -3.5
+margin_right = 19.0
+margin_bottom = 4.5
+bbcode_enabled = true
+bbcode_text = "[color=#444]00[/color]5"
+text = "005"
+scroll_active = false
+
+[node name="MP" type="Control" parent="PlayerPanel"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -21.0
+margin_top = -5.5
+margin_right = -4.0
+margin_bottom = -0.5
+
+[node name="Icon" type="TextureRect" parent="PlayerPanel/MP"]
+margin_right = 5.0
+margin_bottom = 5.0
+texture = ExtResource( 7 )
+
+[node name="MP" type="RichTextLabel" parent="PlayerPanel/MP/Icon"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 6.0
+margin_top = -3.5
+margin_right = 18.0
+margin_bottom = 3.5
+bbcode_enabled = true
+bbcode_text = "[color=#444]0[/color]20"
+text = "020"
+scroll_active = false
+
+[node name="AP" type="Control" parent="PlayerPanel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -36.5
+margin_top = -6.0
+margin_right = 37.5
+margin_bottom = -1.0
+
+[node name="APMax" type="TextureRect" parent="PlayerPanel/AP"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 0.156863 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = -2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 2
+
+[node name="APCur" type="TextureRect" parent="PlayerPanel/AP"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = -2.0
+margin_right = -38.0
+margin_bottom = -2.0
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 2
+
+[node name="Debuffs" type="HBoxContainer" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -83.0
+margin_top = -16.0
+margin_right = -2.0
+margin_bottom = -3.0
+custom_constants/separation = 1
+alignment = 2
+
+[node name="Condition" type="Control" parent="Debuffs"]
+margin_left = 32.0
+margin_right = 41.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 51
+
+[node name="Label" type="Label" parent="Debuffs/Condition"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -11.0
+margin_top = 7.0
+margin_bottom = 13.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "9"
+align = 2
+
+[node name="Condition2" type="Control" parent="Debuffs"]
+margin_left = 42.0
+margin_right = 51.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition2"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 3
+
+[node name="Label" type="Label" parent="Debuffs/Condition2"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -11.0
+margin_top = 7.0
+margin_bottom = 13.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "9"
+align = 2
+
+[node name="Condition3" type="Control" parent="Debuffs"]
+margin_left = 52.0
+margin_right = 61.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition3"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 3
+
+[node name="Label" type="Label" parent="Debuffs/Condition3"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -11.0
+margin_top = 7.0
+margin_bottom = 13.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "9"
+align = 2
+
+[node name="Condition4" type="Control" parent="Debuffs"]
+margin_left = 62.0
+margin_right = 71.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition4"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 3
+
+[node name="Label" type="Label" parent="Debuffs/Condition4"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -11.0
+margin_top = 7.0
+margin_bottom = 13.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "9"
+align = 2
+
+[node name="Condition5" type="Control" parent="Debuffs"]
+margin_left = 72.0
+margin_right = 81.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 9, 9 )
+
+[node name="Sprite" type="Sprite" parent="Debuffs/Condition5"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
+texture = ExtResource( 6 )
+centered = false
+hframes = 10
+vframes = 10
+frame = 3
+
+[node name="Label" type="Label" parent="Debuffs/Condition5"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -11.0
+margin_top = 7.0
+margin_bottom = 13.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "9"
+align = 2
+
+[node name="Hand" type="VBoxContainer" parent="."]
+margin_left = 5.0
+margin_top = 96.0
+margin_right = 104.0
+margin_bottom = 173.0
+custom_constants/separation = 3
+
+[node name="Pos1" type="NinePatchRect" parent="Hand"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+margin_right = 99.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 0, 13 )
+texture = ExtResource( 13 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="ActionBtn" parent="Hand/Pos1" instance=ExtResource( 3 )]
+
+[node name="Pos2" type="NinePatchRect" parent="Hand"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+margin_top = 16.0
+margin_right = 99.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 0, 13 )
+texture = ExtResource( 13 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="ActionBtn2" parent="Hand/Pos2" instance=ExtResource( 3 )]
+
+[node name="Pos3" type="NinePatchRect" parent="Hand"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+margin_top = 32.0
+margin_right = 99.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 13 )
+texture = ExtResource( 13 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Pos4" type="NinePatchRect" parent="Hand"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+margin_top = 48.0
+margin_right = 99.0
+margin_bottom = 61.0
+rect_min_size = Vector2( 0, 13 )
+texture = ExtResource( 13 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Pos5" type="NinePatchRect" parent="Hand"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+margin_top = 64.0
+margin_right = 99.0
+margin_bottom = 77.0
+rect_min_size = Vector2( 0, 13 )
+texture = ExtResource( 13 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Items" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -17.0
+margin_right = 71.0
+margin_bottom = -1.0
+custom_constants/separation = 1
+
+[node name="Pos1" type="Control" parent="Items"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Item" parent="Items/Pos1" instance=ExtResource( 2 )]
+margin_top = 0.0
+margin_bottom = 16.0
+
+[node name="Pos2" type="Control" parent="Items"]
+margin_left = 17.0
+margin_right = 33.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Item2" parent="Items/Pos2" instance=ExtResource( 2 )]
+margin_top = 0.0
+margin_bottom = 16.0
+
+[node name="Pos3" type="Control" parent="Items"]
+margin_left = 34.0
+margin_right = 50.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Item3" parent="Items/Pos3" instance=ExtResource( 2 )]
+margin_top = 0.0
+margin_bottom = 16.0
+
+[node name="Pos4" type="Control" parent="Items"]
+margin_left = 51.0
+margin_right = 67.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Item4" parent="Items/Pos4" instance=ExtResource( 2 )]
+margin_top = 0.0
+margin_bottom = 16.0
+
+[node name="EndTurn" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -39.0
+margin_top = -15.0
+margin_right = -3.0
+margin_bottom = -2.0
+text = "End Turn"
+
+[node name="Window" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )

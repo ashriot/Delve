@@ -8,3 +8,6 @@ onready var damage_sprite := $Dmg/Icon/Sprite
 
 func init() -> void:
 	pass
+
+func setup(action: Action) -> void:
+	pass

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/Job.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = "thief"
+title = "Thief"
+desc = "A deft combatant who relies on drawing additional actions to maintain her combat prowess."
+sprite_id = 8
+life = 20
+stamina = 3
+armor = 0
+mana = 2
+gold = 15
+level = 0
+xp = 0
+unlocked = false
+initial_actions = [  ]
+perks = [  ]
+gears = [  ]
+specs = [  ]

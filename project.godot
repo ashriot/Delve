@@ -12,12 +12,27 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Action",
 "language": "GDScript",
-"path": "res://src/core/action.gd"
+"path": "res://resources/Action.gd"
 }, {
 "base": "Button",
 "class": "ActionBtn",
 "language": "GDScript",
 "path": "res://src/battle/ActionBtn.gd"
+}, {
+"base": "Window",
+"class": "Battle",
+"language": "GDScript",
+"path": "res://src/battle/Battle.gd"
+}, {
+"base": "Resource",
+"class": "Deck",
+"language": "GDScript",
+"path": "res://resources/Deck.gd"
+}, {
+"base": "Resource",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://resources/Enemy.gd"
 }, {
 "base": "Reference",
 "class": "Enums",
@@ -28,12 +43,57 @@ _global_script_classes=[ {
 "class": "Game",
 "language": "GDScript",
 "path": "res://src/core/Game.gd"
+}, {
+"base": "Resource",
+"class": "Job",
+"language": "GDScript",
+"path": "res://resources/Job.gd"
+}, {
+"base": "Resource",
+"class": "JobData",
+"language": "GDScript",
+"path": "res://resources/JobData.gd"
+}, {
+"base": "Resource",
+"class": "Perk",
+"language": "GDScript",
+"path": "res://resources/Perk.gd"
+}, {
+"base": "Resource",
+"class": "Player",
+"language": "GDScript",
+"path": "res://resources/Player.gd"
+}, {
+"base": "Resource",
+"class": "Run",
+"language": "GDScript",
+"path": "res://resources/Run.gd"
+}, {
+"base": "Resource",
+"class": "SaveGame",
+"language": "GDScript",
+"path": "res://resources/SaveGame.gd"
+}, {
+"base": "Control",
+"class": "Window",
+"language": "GDScript",
+"path": "res://src/core/Window.gd"
 } ]
 _global_script_class_icons={
 "Action": "",
 "ActionBtn": "",
+"Battle": "",
+"Deck": "",
+"Enemy": "",
 "Enums": "",
-"Game": ""
+"Game": "",
+"Job": "",
+"JobData": "",
+"Perk": "",
+"Player": "",
+"Run": "",
+"SaveGame": "",
+"Window": ""
 }
 
 [application]
@@ -41,6 +101,12 @@ _global_script_class_icons={
 config/name="Delve"
 run/main_scene="res://src/core/Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Gm="*res://src/singletons/GameManager.gd"
+Ac="*res://src/singletons/AudioController.tscn"
+Db="*res://src/singletons/ActionDb.gd"
 
 [display]
 
@@ -58,7 +124,7 @@ font=false
 [gui]
 
 theme/custom="res://assets/gui/default_theme.tres"
-theme/custom_font="res://assets/gui/TinyBox.tres"
+theme/custom_font="res://assets/gui/fonts/TinyBox.tres"
 
 [importer_defaults]
 

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/Job.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = "sorcerer"
+title = "Sorcerer"
+desc = "A powerful magic-user who specializes in all types of magic. Relies heavily on Mana."
+sprite_id = 3
+life = 15
+stamina = 2
+armor = 0
+mana = 4
+gold = 10
+level = 0
+xp = 0
+unlocked = false
+initial_actions = [  ]
+perks = [  ]
+gears = [  ]
+specs = [  ]

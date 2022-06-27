@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/JobData.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = "sorcerer"
+unlocked = false
+level = 0
+xp = 0
+perk_data = {
+}

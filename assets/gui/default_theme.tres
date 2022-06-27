@@ -1,24 +1,32 @@
-[gd_resource type="Theme" load_steps=5 format=2]
+[gd_resource type="Theme" load_steps=11 format=2]
 
-[ext_resource path="res://assets/gui/TinyBox.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/gui/button.tres" type="StyleBox" id=2]
-[ext_resource path="res://assets/gui/panel_black.tres" type="StyleBox" id=3]
-[ext_resource path="res://assets/gui/button_disabled.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/gui/fonts/TinyBox.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/gui/elements/button.tres" type="StyleBox" id=2]
+[ext_resource path="res://assets/gui/elements/button_pressed.tres" type="StyleBox" id=3]
+[ext_resource path="res://assets/gui/elements/panel_black.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/gui/elements/button_disabled.tres" type="StyleBox" id=5]
+[ext_resource path="res://assets/gui/img/settings_close.png" type="Texture" id=6]
+[ext_resource path="res://assets/gui/elements/scroll_grabber.tres" type="StyleBox" id=7]
+[ext_resource path="res://assets/gui/elements/scroll_bg.tres" type="StyleBox" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
 
 [resource]
 default_font = ExtResource( 1 )
 Button/colors/font_color = Color( 0.760784, 0.760784, 0.760784, 1 )
 Button/colors/font_color_disabled = Color( 0.313726, 0.313726, 0.313726, 1 )
-Button/colors/font_color_focus = Color( 1, 1, 1, 1 )
-Button/colors/font_color_hover = Color( 1, 1, 1, 1 )
-Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/colors/font_color_focus = Color( 0.760784, 0.760784, 0.760784, 1 )
+Button/colors/font_color_hover = Color( 0.760784, 0.760784, 0.760784, 1 )
+Button/colors/font_color_pressed = Color( 0.588235, 0.588235, 0.588235, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = null
-Button/styles/disabled = ExtResource( 4 )
-Button/styles/focus = ExtResource( 2 )
+Button/styles/disabled = ExtResource( 5 )
+Button/styles/focus = SubResource( 1 )
 Button/styles/hover = ExtResource( 2 )
 Button/styles/normal = ExtResource( 2 )
-Button/styles/pressed = ExtResource( 2 )
+Button/styles/pressed = ExtResource( 3 )
 Label/colors/font_color = Color( 0.760784, 0.760784, 0.760784, 1 )
 Label/constants/line_spacing = 1
 Label/constants/shadow_as_outline = 0
@@ -26,7 +34,20 @@ Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/fonts/font = null
 Label/styles/normal = null
-Panel/styles/panel = ExtResource( 3 )
+LineEdit/colors/clear_button_color = Color( 1, 1, 1, 1 )
+LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
+LineEdit/colors/cursor_color = Color( 0.588235, 0.588235, 0.588235, 1 )
+LineEdit/colors/font_color = Color( 0.760784, 0.760784, 0.760784, 1 )
+LineEdit/colors/font_color_selected = Color( 0.152941, 0.152941, 0.152941, 1 )
+LineEdit/colors/font_color_uneditable = Color( 0.88, 0.88, 0.88, 0.5 )
+LineEdit/colors/selection_color = Color( 0.313726, 0.313726, 0.313726, 1 )
+LineEdit/constants/minimum_spaces = 12
+LineEdit/fonts/font = null
+LineEdit/icons/clear = ExtResource( 6 )
+LineEdit/styles/focus = SubResource( 2 )
+LineEdit/styles/normal = ExtResource( 2 )
+LineEdit/styles/read_only = ExtResource( 5 )
+Panel/styles/panel = ExtResource( 4 )
 RichTextLabel/colors/default_color = Color( 0.760784, 0.760784, 0.760784, 1 )
 RichTextLabel/colors/font_color_selected = Color( 0.760784, 0.760784, 0.760784, 1 )
 RichTextLabel/colors/font_color_shadow = Color( 0, 0, 0, 0 )
@@ -45,3 +66,14 @@ RichTextLabel/fonts/normal_font = null
 RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
 VBoxContainer/constants/separation = 4
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/decrement_pressed = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/icons/increment_pressed = null
+VScrollBar/styles/grabber = ExtResource( 7 )
+VScrollBar/styles/grabber_highlight = ExtResource( 7 )
+VScrollBar/styles/grabber_pressed = ExtResource( 7 )
+VScrollBar/styles/scroll = ExtResource( 8 )
+VScrollBar/styles/scroll_focus = ExtResource( 8 )

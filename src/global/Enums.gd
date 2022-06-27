@@ -15,10 +15,10 @@ enum ActionType {
 enum SubType {
 	NONE,
 	AXE,
-	BOOMERANG,
 	BOW,
-	GUN,
-	KNIFE,
+	DAGGER,
+	MACE,
+	SHIELD,
 	SPEAR,
 	STAFF,
 	SWORD,
@@ -39,11 +39,10 @@ enum TargetType {
 }
 
 enum DamageType {
+	NONE,
 	MARTIAL,
-	AIR,
-	ETHER,
-	FIRE,
-	WATER
+	SPELL,
+	PIERCING
 }
 
 enum ResourceType {
