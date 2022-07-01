@@ -17,7 +17,7 @@ func _start_turn() -> void:
 		assert(_battle.player.is_alive)
 		_next_state(_player_turn_state)
 	else:
-		assert(_battle.enemy.is_alive)
+		assert(_battle.enemy_panel._enemy.is_alive)
 #		_next_state(_enemy_turn_state)
 
 

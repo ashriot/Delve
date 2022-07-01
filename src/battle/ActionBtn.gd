@@ -17,9 +17,11 @@ var _action: Action
 var _played: bool
 var _holding: bool
 
+
 func setup(action: Action) -> void:
 	_action = action
 	update_data()
+
 
 func show() -> void:
 	.show()
@@ -29,6 +31,7 @@ func show() -> void:
 	yield(anim, "animation_finished")
 	_played = false
 	update_data()
+
 
 func update_data() -> void:
 	emphasis.hide()
@@ -58,6 +61,7 @@ func play() -> void:
 	anim.play("Play")
 	_battle.play_action(self)
 
+
 func _on_Button_up() -> void:
 	update_data()
 	timer.stop()
@@ -69,9 +73,11 @@ func _on_Button_up() -> void:
 	if _played: return
 	play()
 
+
 func _on_Button_down():
 	modulate.a = 0.66
 	timer.start(.25)
+
 
 func _on_Timer_timeout() -> void:
 	timer.stop()
