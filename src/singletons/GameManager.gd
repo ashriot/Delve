@@ -15,8 +15,8 @@ var spd: = 1.0 setget, get_spd
 var game: Game
 
 var ui_color: Color
-var gold = Color("#ffbe22")
-var gray = Color("#606060")
+var gold_color = Color("#ffbe22")
+var gray_color = Color("#606060")
 
 func init() -> void:
 	var profile_path = "user://profile"
@@ -161,10 +161,12 @@ func _on_deck_changed(deck):
 	var error = ResourceSaver.save(file_path, save_data)
 	check_error(error)
 
-func _on_gold_changed(gold):
+func _on_gold_changed(amt: int):
 	print("Gold changed")
-	save_data.gold = gold
-	var error = ResourceSaver.save(file_path, save_data)
+	save_data.gold = amt
+	var err := ResourceSaver.save(file_path, save_data)
+	if err != OK:
+		push_error("Unable to save gold! Err: " + str(err))
 
 func check_error(error):
 	if error != OK:

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://resources/EnemyJob.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+id = "devil"
+title = "Dev'lil"
+desc = "A tiny li'l menace."
+life = 25
+stamina = 0
+armor = 10
+mana = 5
+gold = 10
+level = 1
+texture = ExtResource( 2 )
+initial_actions = {
+}
+perks = [  ]

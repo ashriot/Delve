@@ -13,7 +13,7 @@ func get_action_by_id(id: String) -> Action:
 	if not id in ACTIONS:
 		push_error("Trying to get nonexistent action %s in actions database" % id)
 		return null
-	
+
 	return ACTIONS[id]
 
 func get_action_by_rank(rank: int) -> Action:

@@ -19,7 +19,9 @@ export var global_position := Vector2.ZERO
 
 
 func write_savegame() -> void:
-	ResourceSaver.save(SAVE_GAME_PATH, self)
+	var err := ResourceSaver.save(SAVE_GAME_PATH, self)
+	if err != OK:
+		push_error("Unable to save game! Error: " + str(err))
 
 
 static func save_exists() -> bool:
@@ -27,7 +29,7 @@ static func save_exists() -> bool:
 
 
 static func load_savegame() -> Resource:
-	
+
 	# /!\ Workaround for bug https://github.com/godotengine/godot/issues/59686
 	# Without that, sub-resources will not reload from the saved data.
 	# We copy the SaveGame resource's data to a temporary file, load that file
@@ -51,7 +53,7 @@ static func load_savegame() -> Resource:
 	if file.open(tmp_file_path, File.WRITE) != OK:
 		push_error("Couldn't write file " + tmp_file_path)
 		return null
-	
+
 	file.store_string(data)
 	file.close()
 
@@ -63,7 +65,8 @@ static func load_savegame() -> Resource:
 
 	# We delete the temporary file.
 	var directory := Directory.new()
-	directory.remove(tmp_file_path)
+	var err := directory.remove(tmp_file_path)
+	if err != OK: push_error("Unable to delete: " + tmp_file_path + " Err: " + str(err))
 	return save
 
 

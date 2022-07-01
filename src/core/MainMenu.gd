@@ -19,7 +19,7 @@ func init(game: Game) -> void:
 
 func _on_ContinueBtn_pressed():
 	Ac.confirm()
-	
+
 func _on_NewBtn_pressed():
 	Ac.click()
 	_game.show_window(new_game, true)
@@ -65,7 +65,7 @@ func _on_ProfileBtn_pressed():
 	name_edit.caret_position = name_edit.text.length()
 
 
-func _on_NameEdit_text_changed(new_text):
+func _on_NameEdit_text_changed(_new_text):
 	if name_edit.text.length() < 2:
 		$Back.disabled = true
 	else:

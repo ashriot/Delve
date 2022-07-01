@@ -16,7 +16,7 @@ func get_quantity(id: String) -> int:
 	if not id in actions:
 		printerr("Trying to get the qty of item %s but the deck doesn't have it." % id)
 		return -1
-	
+
 	return actions[id]
 
 
@@ -27,5 +27,6 @@ func remove_item(id: String, qty := 1) -> void:
 
 	actions[id] -= qty
 	if actions[id] <= 0:
+		# warning-ignore:return_value_discarded
 		actions.erase(id)
 	emit_changed()

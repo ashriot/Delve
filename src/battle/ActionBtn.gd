@@ -42,7 +42,7 @@ func update_data() -> void:
 		cost.show()
 		cost.text = str(_action.cost)
 		cost_sprite.frame = _action.cost_type
-		
+
 	btn.text = _action.title
 	if _action.damage > 0:
 		dmg.text = str(_action.damage)
@@ -50,7 +50,7 @@ func update_data() -> void:
 	elif _action.healing > 0:
 		dmg.text = "+" + str(_action.healing)
 		dmg_sprite.frame = _action.healing_type
-	
+
 	dmg.rect_position.x = 91 - dmg.rect_size.x
 
 

@@ -14,6 +14,8 @@ export var mana: int
 export var mana_initial: int
 export var gold: int
 
+export var is_alive: bool setget , get_is_alive
+
 
 func init(job: Job) -> void:
 	title = job.title
@@ -24,4 +26,7 @@ func init(job: Job) -> void:
 	stamina_max = job.stamina
 	armor_initial = job.armor
 	mana_initial = job.mana
-	
+
+
+func get_is_alive() -> bool:
+	return life > 0

@@ -7,6 +7,7 @@ const SORCERER := preload("res://resources/jobs/sorcerer.tres")
 const THIEF := preload("res://resources/jobs/thief.tres")
 
 signal fade_done
+# warning-ignore:unused_signal
 signal done_loading
 
 onready var settings := $GUI/SettingsMenu
@@ -45,26 +46,26 @@ func _create_or_load_save() -> void:
 		create_new_data()
 
 		_save.write_savegame()
-		
+
 	call_deferred("emit_signal", "done_loading")
 
 func create_new_data() -> void:
 	_save.profile_name = "Hero"
-	
+
 	var fighter = JobData.new()
 	fighter.id = FIGHTER.id
 	fighter.level = 1
 	for perk in FIGHTER.perks:
 		fighter.perk_data[perk.id] = 0
 	_save.job_data[fighter.id] = fighter
-	
+
 	var sorcerer = JobData.new()
 	sorcerer.id = SORCERER.id
 	sorcerer.level = 1
 	for perk in SORCERER.perks:
 		sorcerer.perk_data[perk.id] = 0
 	_save.job_data[sorcerer.id] = sorcerer
-	
+
 	var thief = JobData.new()
 	thief.id = THIEF.id
 	thief.level = 1
@@ -79,19 +80,19 @@ func save_game() -> void:
 func start_game(job: Job) -> void:
 	_save.player = Player.new()
 	_save.player.init(job)
-	
+
 	_save.deck = Deck.new()
-	
+
 	for action in job.initial_actions.keys():
 		_save.deck.add_action(action, job.initial_actions[action])
-	
+
 	save_game()
-	
-	var enemy = load("res://resources/enemies/level_1/devil.tres")
+
+	var enemy := load("res://resources/enemy_jobs/1/devil.tres") as EnemyJob
 	change_scene(battle)
 	battle.setup(enemy)
 	yield(self, "fade_done")
-	
+
 func change_scene(scene: Control) -> void:
 	fade_out()
 	yield(fader, "animation_finished")
@@ -117,7 +118,7 @@ func fade_in() -> void:
 	yield(fader, "animation_finished")
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	emit_signal("fade_done")
-	
+
 func fade_out() -> void:
 	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
 	fader.play("FadeOut")
@@ -134,7 +135,7 @@ func get_save() -> SaveGame:
 
 func set_profile_name(text: String) -> void:
 	_save.profile_name = text
-	
+
 func get_profile_name() -> String:
 	if _save: return _save.profile_name
 	return ""
