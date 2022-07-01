@@ -9,7 +9,7 @@ func show() -> void:
 	anim.play("Show")
 	yield(anim, "animation_finished")
 	emit_signal("done")
-	
+
 
 func hide() -> void:
 	anim.play("Hide")

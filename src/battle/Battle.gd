@@ -6,7 +6,7 @@ const _ActionBtn:= preload("res://src/battle/ActionBtn.tscn")
 const HAND_SIZE = 5
 
 
-onready var enemy_sprite := $EnemyPanel/Enemy
+onready var enemy_panel := $EnemyPanel
 onready var enemy_life := $EnemyPanel/Life/Value
 onready var enemy_life_percent := $EnemyPanel/Life/Percent
 onready var enemy_armor := $EnemyPanel/Armor/Value
@@ -49,6 +49,7 @@ func setup(enemy_job: EnemyJob) -> void:
 	_deck = _game.save.deck
 	self.banner = "Lv. " + str(enemy.level) + " " + enemy.title
 	update_enemy_data()
+	enemy_panel.init(self)
 	player = _game.save.player
 	_hand_count = 0
 	self._draw_pile_count = 0
@@ -110,7 +111,6 @@ func play_action(action: ActionBtn) -> void:
 
 
 func update_enemy_data() -> void:
-	enemy_sprite.texture = enemy.texture
 	enemy_life.bbcode_text = pad_str(enemy.life, true)
 	if enemy.armor > 0:
 		$EnemyPanel/Armor.show()
