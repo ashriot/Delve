@@ -46,6 +46,7 @@ func setup(enemy_job: EnemyJob) -> void:
 	enemy_panel.setup(enemy_job)
 	_deck = _game.save.deck
 	update_enemy_data()
+	enemy_panel.init(self)
 	player = _game.save.player
 	_hand_count = 0
 	self._draw_pile_count = 0
