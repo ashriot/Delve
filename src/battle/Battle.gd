@@ -7,13 +7,7 @@ const HAND_SIZE = 5
 
 
 onready var enemy_panel := $EnemyPanel
-
-onready var player_life := $PlayerPanel/Life/Value
-onready var player_life_percent := $PlayerPanel/Life/Percent
-onready var player_armor := $PlayerPanel/Armor/Icon/Value
-onready var player_mana := $PlayerPanel/Mana/Icon/Value
-onready var player_stamina := $PlayerPanel/Stamina/StaminaCur
-onready var player_stamina_max := $PlayerPanel/Stamina/StaminaMax
+onready var player_panel := $PlayerPanel
 
 onready var draw_pile := $DrawPileIcon/DrawPile
 onready var draw_label := $DrawPileIcon/Label
@@ -45,9 +39,8 @@ func setup(enemy_job: EnemyJob) -> void:
 	enemy_panel.init(self)
 	enemy_panel.setup(enemy_job)
 	_deck = _game.save.deck
-	update_enemy_data()
-	enemy_panel.init(self)
 	player = _game.save.player
+	player_panel.init(self)
 	_hand_count = 0
 	self._draw_pile_count = 0
 	self._discard_pile_count = 0
@@ -104,12 +97,10 @@ func end_turn() -> void:
 	pass
 
 
-func play_action(action: ActionBtn) -> void:
+func play_action(btn: ActionBtn) -> void:
 	self._discard_pile_count += 1
-
-
-func update_enemy_data() -> void:
-	enemy_panel.update_data()
+	if btn.cost > 0 and btn.cost_type == Enums.ResourceType.STAMINA:
+		player_panel.stamina_cur -= btn.cost
 
 
 func player_lost() -> bool:
@@ -130,18 +121,12 @@ func set_pos(btn: ActionBtn) -> void:
 			return
 
 
-func pad_str(value: int, dark := false) -> String:
+func pad_str(value: int) -> String:
 	var string := str(value)
 	var zeros := "0".repeat(3 - string.length())
 
-	var transparent_color := "c2c2c2"
-	var main_color := "c2c2c2"
-	if dark:
-		transparent_color = "272727"
-		main_color = "272727"
-
-	var res := "[color=#33" + transparent_color + "]" + zeros + \
-		"[/color][color=#ff" + main_color + "]" + string + "[/color]"
+	var res := "[color=#33ffffff]" + zeros + \
+		"[/color][color=#ffffffff]" + string + "[/color]"
 	return res
 
 

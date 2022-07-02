@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/gui/img/card_front.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=2]
@@ -7,13 +7,11 @@
 [ext_resource path="res://assets/gui/img/star_white.png" type="Texture" id=5]
 [ext_resource path="res://assets/gui/img/ap_texture.png" type="Texture" id=6]
 [ext_resource path="res://assets/gui/img/square.png" type="Texture" id=7]
-[ext_resource path="res://assets/gui/img/heart_black.png" type="Texture" id=8]
+[ext_resource path="res://src/battle/PlayerPanel.gd" type="Script" id=8]
 [ext_resource path="res://assets/gui/elements/panel_white.tres" type="StyleBox" id=9]
 [ext_resource path="res://assets/gui/img/card_back.png" type="Texture" id=10]
 [ext_resource path="res://assets/gui/img/button_bg.png" type="Texture" id=11]
 [ext_resource path="res://src/battle/ItemBtn.tscn" type="PackedScene" id=12]
-[ext_resource path="res://assets/gui/img/shield_black.png" type="Texture" id=13]
-[ext_resource path="res://assets/gui/img/star_black.png" type="Texture" id=14]
 [ext_resource path="res://assets/images/sprites/icons.png" type="Texture" id=15]
 [ext_resource path="res://assets/images/sprites/conditions.png" type="Texture" id=16]
 [ext_resource path="res://src/battle/state/StateManager.gd" type="Script" id=17]
@@ -57,38 +55,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "Idle"
-length = 1.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Enemy:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 1, 0 ]
-}
-
-[sub_resource type="Animation" id=4]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Enemy:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1 ]
 }
 
 [node name="Battle" type="Control"]
@@ -147,6 +113,9 @@ script = ExtResource( 25 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite" type="Sprite" parent="EnemyPanel"]
 position = Vector2( 20, 10 )
@@ -156,13 +125,14 @@ hframes = 9
 frame = 1
 
 [node name="Life" type="TextureRect" parent="EnemyPanel"]
+self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -10.5
 margin_top = 10.0
 margin_right = -5.5
 margin_bottom = 15.0
-texture = ExtResource( 8 )
+texture = ExtResource( 3 )
 
 [node name="Percent" type="TextureProgress" parent="EnemyPanel/Life"]
 anchor_top = 1.0
@@ -180,6 +150,7 @@ tint_progress = Color( 0.152941, 0.152941, 0.152941, 1 )
 nine_patch_stretch = true
 
 [node name="Value" type="RichTextLabel" parent="EnemyPanel/Life"]
+self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
 margin_left = 6.0
 margin_top = -1.0
 margin_right = 22.0
@@ -192,13 +163,14 @@ text = "025
 scroll_active = false
 
 [node name="Armor" type="TextureRect" parent="EnemyPanel"]
+modulate = Color( 0.454902, 0.454902, 0.454902, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -29.5
 margin_top = 12.0
 margin_right = -24.5
 margin_bottom = 17.0
-texture = ExtResource( 13 )
+texture = ExtResource( 4 )
 
 [node name="Value" type="RichTextLabel" parent="EnemyPanel/Armor"]
 margin_left = 6.0
@@ -206,18 +178,19 @@ margin_top = -1.0
 margin_right = 18.0
 margin_bottom = 5.0
 bbcode_enabled = true
-bbcode_text = "[color=#55272727]0[/color][color=#ff272727]25[/color]"
+bbcode_text = "[color=#55ffffff]0[/color][color=#ffffffff]25[/color]"
 text = "025"
 scroll_active = false
 
 [node name="Mana" type="TextureRect" parent="EnemyPanel"]
+modulate = Color( 0.454902, 0.454902, 0.454902, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 13.5
 margin_top = 12.0
 margin_right = 18.5
 margin_bottom = 17.0
-texture = ExtResource( 14 )
+texture = ExtResource( 5 )
 
 [node name="Value" type="RichTextLabel" parent="EnemyPanel/Mana"]
 anchor_left = 1.0
@@ -227,7 +200,7 @@ margin_top = -1.0
 margin_right = 13.0
 margin_bottom = 5.0
 bbcode_enabled = true
-bbcode_text = "[color=#55272727]0[/color][color=#ff272727]25[/color]"
+bbcode_text = "[color=#55ffffff]0[/color][color=#ffffffff]25[/color]"
 text = "025"
 scroll_active = false
 
@@ -348,7 +321,7 @@ centered = false
 hframes = 10
 vframes = 10
 
-[node name="PlayerPanel" type="Panel" parent="."]
+[node name="PlayerPanel" type="Control" parent="."]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -356,8 +329,17 @@ margin_left = 16.0
 margin_top = -35.0
 margin_right = -16.0
 margin_bottom = -16.0
+script = ExtResource( 8 )
+
+[node name="Panel" type="Panel" parent="PlayerPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Life" type="TextureRect" parent="PlayerPanel"]
+modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -378,9 +360,10 @@ margin_left = 6.0
 margin_top = -3.5
 margin_right = 34.0
 margin_bottom = 3.5
+rect_rotation = 0.130395
 bbcode_enabled = true
-bbcode_text = "[color=#444]0[/color]45/120"
-text = "045/120"
+bbcode_text = "[color=#55ffffff]0[/color][color=#ffffffff]25[/color]/100"
+text = "025/100"
 scroll_active = false
 
 [node name="Percent" type="TextureProgress" parent="PlayerPanel/Life"]
@@ -407,6 +390,7 @@ margin_right = 21.0
 margin_bottom = -0.5
 
 [node name="Icon" type="TextureRect" parent="PlayerPanel/Armor"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_top = -2.5
@@ -415,6 +399,7 @@ margin_bottom = 2.5
 texture = ExtResource( 4 )
 
 [node name="Value" type="RichTextLabel" parent="PlayerPanel/Armor/Icon"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 6.0
@@ -437,11 +422,13 @@ margin_right = -3.0
 margin_bottom = -0.5
 
 [node name="Icon" type="TextureRect" parent="PlayerPanel/Mana"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 margin_right = 5.0
 margin_bottom = 5.0
 texture = ExtResource( 5 )
 
 [node name="Value" type="RichTextLabel" parent="PlayerPanel/Mana/Icon"]
+self_modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 6.0
@@ -486,6 +473,8 @@ margin_bottom = -2.0
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerPanel"]
 
 [node name="DrawPileIcon" type="NinePatchRect" parent="."]
 margin_left = 2.0

@@ -2,9 +2,9 @@ extends BattleControl
 class_name ActionBtn
 
 onready var btn := $Button
-onready var cost := $Button/Cost
+onready var cost_txt := $Button/Cost
 onready var cost_sprite := $Button/Cost/Icon/Sprite
-onready var stam_cost := $Button/StamCost
+onready var stam_cost_txt := $Button/StamCost
 onready var stam_img := $Button/StamCost/Image
 onready var dmg := $Button/Dmg
 onready var dmg_sprite := $Button/Dmg/Icon/Sprite
@@ -12,6 +12,9 @@ onready var emphasis := $Button/Emphasis
 
 onready var timer = $Timer
 onready var anim = $Button/AnimationPlayer
+
+var cost: int setget , get_cost
+var cost_type: int setget , get_cost_type
 
 var _action: Action
 var _played: bool
@@ -36,14 +39,14 @@ func show() -> void:
 func update_data() -> void:
 	emphasis.hide()
 	if _action.cost == 0:
-		stam_cost.hide()
-		cost.hide()
+		stam_cost_txt.hide()
+		cost_txt.hide()
 	elif _action.cost_type == Enums.ResourceType.STAMINA:
-		stam_cost.show()
+		stam_cost_txt.show()
 		stam_img.rect_size.x = _action.cost * 6
 	else:
-		cost.show()
-		cost.text = str(_action.cost)
+		cost_txt.show()
+		cost_txt.text = str(_action.cost)
 		cost_sprite.frame = _action.cost_type
 
 	btn.text = _action.title
@@ -58,11 +61,22 @@ func update_data() -> void:
 
 
 func play() -> void:
+	if _played: return
 	anim.play("Play")
 	_battle.play_action(self)
+	_played = true
+
+
+func get_cost() -> int:
+	return _action.cost
+
+
+func get_cost_type() -> int:
+	return _action.cost_type
 
 
 func _on_Button_up() -> void:
+	print("Button up!")
 	update_data()
 	timer.stop()
 	if _holding:

@@ -23,6 +23,7 @@ func init(job: Job) -> void:
 	level = job.level
 	life_max = job.life
 	life = life_max
+	stamina = job.stamina
 	stamina_max = job.stamina
 	armor_initial = job.armor
 	mana_initial = job.mana
