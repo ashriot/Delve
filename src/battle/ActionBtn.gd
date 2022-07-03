@@ -1,6 +1,8 @@
 extends BattleControl
 class_name ActionBtn
 
+signal done
+
 onready var btn := $Button
 onready var cost_txt := $Button/Cost
 onready var cost_sprite := $Button/Cost/Icon/Sprite
@@ -10,14 +12,14 @@ onready var dmg := $Button/Dmg
 onready var dmg_sprite := $Button/Dmg/Icon/Sprite
 onready var emphasis := $Button/Emphasis
 
-onready var timer = $Timer
-onready var anim = $Button/AnimationPlayer
+onready var timer := $Timer
+onready var anim := $Button/AnimationPlayer as AnimationPlayer
 
 var cost: int setget , get_cost
 var cost_type: int setget , get_cost_type
 
 var _action: Action
-var _played: bool
+var _played: bool setget set_played
 var _holding: bool
 
 
@@ -32,7 +34,7 @@ func show() -> void:
 	Ac.play_sfx("pop")
 	anim.play("Draw")
 	yield(anim, "animation_finished")
-	_played = false
+	self._played = false
 	update_data()
 
 
@@ -62,9 +64,12 @@ func update_data() -> void:
 
 func play() -> void:
 	if _played: return
+	self._played = true
 	anim.play("Play")
 	_battle.play_action(self)
-	_played = true
+	yield(anim, "animation_finished")
+	_battle.discard_action(self)
+	anim.play("RESET")
 
 
 func get_cost() -> int:
@@ -75,13 +80,17 @@ func get_cost_type() -> int:
 	return _action.cost_type
 
 
+func set_played(value: bool) -> void:
+	_played = value
+	btn.disabled = value
+
+
 func _on_Button_up() -> void:
-	print("Button up!")
+	modulate.a = 1.0
 	update_data()
 	timer.stop()
 	if _holding:
 		_holding = false
-		modulate.a = 1.0
 #		emit_signal("hide_card")
 		return
 	if _played: return

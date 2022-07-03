@@ -476,7 +476,7 @@ stretch_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerPanel"]
 
-[node name="DrawPileIcon" type="NinePatchRect" parent="."]
+[node name="Draw" type="NinePatchRect" parent="."]
 margin_left = 2.0
 margin_top = 61.0
 margin_right = 15.0
@@ -487,14 +487,14 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="DrawPile" type="VBoxContainer" parent="DrawPileIcon"]
+[node name="Pile" type="VBoxContainer" parent="Draw"]
 visible = false
 margin_left = 5.0
 margin_top = 11.0
 margin_right = 104.0
 margin_bottom = 56.0
 
-[node name="Label" type="Label" parent="DrawPileIcon"]
+[node name="Label" type="Label" parent="Draw"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -503,7 +503,7 @@ text = "00"
 align = 1
 valign = 1
 
-[node name="DiscardPileIcon" type="NinePatchRect" parent="."]
+[node name="Discard" type="NinePatchRect" parent="."]
 margin_left = 94.0
 margin_top = 61.0
 margin_right = 107.0
@@ -514,14 +514,25 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="DiscardPile" type="VBoxContainer" parent="DiscardPileIcon"]
-visible = false
-margin_left = 5.0
-margin_top = 11.0
-margin_right = 104.0
-margin_bottom = 56.0
+[node name="Button" type="TextureButton" parent="Discard"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="DiscardPileIcon"]
+[node name="ColorRect" type="ColorRect" parent="Discard"]
+margin_left = -90.0
+margin_top = -50.0
+margin_right = 11.0
+margin_bottom = 112.0
+color = Color( 0.152941, 0.152941, 0.152941, 0.784314 )
+
+[node name="Pile" type="VBoxContainer" parent="Discard"]
+margin_left = -89.0
+margin_top = -46.0
+margin_right = 11.0
+margin_bottom = 112.0
+custom_constants/separation = 2
+
+[node name="Label" type="Label" parent="Discard"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -842,4 +853,5 @@ text = "Banner"
 align = 1
 valign = 1
 
+[connection signal="pressed" from="Discard/Button" to="." method="_on_Discard_Button_pressed"]
 [connection signal="pressed" from="EndTurn" to="." method="_on_EndTurn_pressed"]

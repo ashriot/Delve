@@ -53,7 +53,7 @@ func set_mana(value: int) -> void:
 		$Mana.show()
 		mana_txt.bbcode_text = _battle.pad_str(_enemy.mana)
 	else: $Mana.hide()
-	
+
 
 func is_alive() -> bool:
 	return _enemy.life > 0

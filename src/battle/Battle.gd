@@ -9,9 +9,11 @@ const HAND_SIZE = 5
 onready var enemy_panel := $EnemyPanel
 onready var player_panel := $PlayerPanel
 
-onready var draw_pile := $DrawPileIcon/DrawPile
-onready var draw_label := $DrawPileIcon/Label
-onready var discard_label := $DiscardPileIcon/Label
+onready var draw_pile := $Draw/Pile
+onready var draw_label := $Draw/Label
+onready var discard_pile := $Discard/Pile
+onready var discard_label := $Discard/Label
+onready var discard_btn := $Discard/Button
 onready var dropped_pile := $Dropped
 onready var dropped_label := $Dropped/Label
 onready var hand := $Hand
@@ -33,7 +35,7 @@ var _player_turn: bool
 func init(game: Game) -> void:
 	_game = game
 	hide_instantly()
-	
+
 
 func setup(enemy_job: EnemyJob) -> void:
 	enemy_panel.init(self)
@@ -42,6 +44,7 @@ func setup(enemy_job: EnemyJob) -> void:
 	player = _game.save.player
 	player_panel.init(self)
 	_hand_count = 0
+	$Discard/ColorRect.hide()
 	self._draw_pile_count = 0
 	self._discard_pile_count = 0
 	self._dropped_pile_count = 0
@@ -79,7 +82,7 @@ func fill_hand() -> void:
 		var btn := draw_pile.get_child(0) as ActionBtn
 		draw_pile.remove_child(btn)
 		self._draw_pile_count -= 1
-		set_pos(btn)
+		set_hand_pos(btn)
 		btn.show()
 		yield(get_tree().create_timer(0.08), "timeout")
 
@@ -103,6 +106,11 @@ func play_action(btn: ActionBtn) -> void:
 		player_panel.stamina_cur -= btn.cost
 
 
+func discard_action(btn: ActionBtn) -> void:
+	remove_hand_pos(btn)
+	discard_pile.add_child(btn)
+	btn.set_position(Vector2.ZERO)
+
 func player_lost() -> bool:
 	return player.life < 1
 
@@ -111,7 +119,7 @@ func player_won() -> bool:
 	return enemy_panel._enemy.life < 1
 
 
-func set_pos(btn: ActionBtn) -> void:
+func set_hand_pos(btn: ActionBtn) -> void:
 	for pos in hand.get_children():
 		if pos.get_child_count() == 0:
 			print("Adding ", btn, " -> ", pos.name)
@@ -119,6 +127,17 @@ func set_pos(btn: ActionBtn) -> void:
 			pos.add_child(btn)
 			btn.set_position(Vector2.ZERO)
 			return
+
+
+func remove_hand_pos(btn: ActionBtn) -> void:
+	for pos in hand.get_children():
+		if pos.get_child_count() > 0:
+			if pos.get_child(0) == btn:
+				print("Removing ", btn, " -> ", pos.name)
+				_hand_count -= 1
+				pos.remove_child(btn)
+				btn.set_position(Vector2.ZERO)
+				return
 
 
 func pad_str(value: int) -> String:
@@ -156,3 +175,9 @@ func show(_move := false) -> void:
 func _on_EndTurn_pressed():
 	Ac.select()
 	end_turn()
+
+
+func _on_Discard_Button_pressed():
+	Ac.click()
+	discard_pile.show()
+	$Discard/ColorRect.show()
