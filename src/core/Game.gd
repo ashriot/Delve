@@ -25,6 +25,7 @@ var _cur_scene: Control
 var _active_windows: Array
 
 func _ready() -> void:
+	randomize()
 	_create_or_load_save()
 	yield(self, "done_loading")
 	settings.init()

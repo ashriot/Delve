@@ -18,9 +18,9 @@ level = 0
 xp = 0
 unlocked = false
 initial_actions = {
-"club": 5,
+"club": 2,
 "short_sword": 3,
-"wooden_shield": 2
+"wooden_shield": 5
 }
 perks = [ ExtResource( 2 ) ]
 gears = [  ]

@@ -15,26 +15,31 @@ onready var emphasis := $Button/Emphasis
 onready var timer := $Timer
 onready var anim := $Button/AnimationPlayer as AnimationPlayer
 
+var title: String setget , get_title
 var cost: int setget , get_cost
 var cost_type: int setget , get_cost_type
+var fade: bool setget , get_fade
+var drop: bool setget , get_drop
 
 var _action: Action
 var _played: bool setget set_played
+var _readonly: bool setget set_readonly
 var _holding: bool
 
 
 func setup(action: Action) -> void:
 	_action = action
+	self._readonly = true
 	update_data()
 
 
-func show() -> void:
-	.show()
+func draw() -> void:
 	btn.modulate.a = 0
 	Ac.play_sfx("pop")
 	anim.play("Draw")
 	yield(anim, "animation_finished")
 	self._played = false
+	self._readonly = false
 	update_data()
 
 
@@ -65,11 +70,18 @@ func update_data() -> void:
 func play() -> void:
 	if _played: return
 	self._played = true
-	anim.play("Play")
+	if _action.fade: anim.play("Fade")
+	elif _action.drop: anim.play("Drop")
+	else: anim.play("Play")
 	_battle.play_action(self)
 	yield(anim, "animation_finished")
 	_battle.discard_action(self)
+	self._readonly = true
 	anim.play("RESET")
+
+
+func get_title() -> String:
+	return _action.title
 
 
 func get_cost() -> int:
@@ -80,9 +92,22 @@ func get_cost_type() -> int:
 	return _action.cost_type
 
 
+func get_fade() -> bool:
+	return _action.fade
+
+
+func get_drop() -> bool:
+	return _action.drop
+
+
 func set_played(value: bool) -> void:
 	_played = value
 	btn.disabled = value
+
+
+func set_readonly(value: bool) -> void:
+	_readonly = value
+	btn.disabled = false
 
 
 func _on_Button_up() -> void:
@@ -94,6 +119,7 @@ func _on_Button_up() -> void:
 #		emit_signal("hide_card")
 		return
 	if _played: return
+	if _readonly: return
 	play()
 
 

@@ -23,6 +23,7 @@ func setup(enemy_job: EnemyJob) -> void:
 	_enemy.init(enemy_job)
 	_battle.banner = "Lv. " + str(_enemy.level) + " " + _enemy.title
 	sprite.texture = _enemy.texture
+	anim.play("Idle")
 	self.life_cur = _enemy.life
 	self.life_max = _enemy.life
 	self.armor_cur = _enemy.armor
@@ -57,3 +58,8 @@ func set_mana(value: int) -> void:
 
 func is_alive() -> bool:
 	return _enemy.life > 0
+
+
+func _on_Btn_pressed():
+	Ac.select()
+

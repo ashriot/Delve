@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/gui/img/card_front.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/gui/img/card_back.png" type="Texture" id=10]
 [ext_resource path="res://assets/gui/img/button_bg.png" type="Texture" id=11]
 [ext_resource path="res://src/battle/ItemBtn.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/core/Pane.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/images/sprites/icons.png" type="Texture" id=15]
 [ext_resource path="res://assets/images/sprites/conditions.png" type="Texture" id=16]
 [ext_resource path="res://src/battle/state/StateManager.gd" type="Script" id=17]
@@ -56,6 +57,44 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 2, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
 
 [node name="Battle" type="Control"]
 anchor_right = 1.0
@@ -122,7 +161,6 @@ position = Vector2( 20, 10 )
 texture = ExtResource( 2 )
 centered = false
 hframes = 9
-frame = 1
 
 [node name="Life" type="TextureRect" parent="EnemyPanel"]
 self_modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
@@ -262,6 +300,8 @@ vframes = 10
 frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyPanel"]
+anims/Idle = SubResource( 3 )
+anims/RESET = SubResource( 4 )
 
 [node name="Traits" type="VBoxContainer" parent="EnemyPanel"]
 margin_left = -10.0
@@ -320,6 +360,14 @@ texture = ExtResource( 16 )
 centered = false
 hframes = 10
 vframes = 10
+
+[node name="Btn" type="TextureButton" parent="EnemyPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = 18.0
+margin_right = -24.0
+margin_bottom = -17.0
 
 [node name="PlayerPanel" type="Control" parent="."]
 anchor_top = 0.5
@@ -486,56 +534,19 @@ patch_margin_left = 3
 patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Pile" type="VBoxContainer" parent="Draw"]
-visible = false
-margin_left = 5.0
-margin_top = 11.0
-margin_right = 104.0
-margin_bottom = 56.0
+[node name="Btn" type="TextureButton" parent="Draw"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="Label" type="Label" parent="Draw"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
 custom_colors/font_color = Color( 0.152941, 0.152941, 0.152941, 1 )
-text = "00"
-align = 1
-valign = 1
-
-[node name="Discard" type="NinePatchRect" parent="."]
-margin_left = 94.0
-margin_top = 61.0
-margin_right = 107.0
-margin_bottom = 80.0
-texture = ExtResource( 10 )
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="Button" type="TextureButton" parent="Discard"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ColorRect" type="ColorRect" parent="Discard"]
-margin_left = -90.0
-margin_top = -50.0
-margin_right = 11.0
-margin_bottom = 112.0
-color = Color( 0.152941, 0.152941, 0.152941, 0.784314 )
-
-[node name="Pile" type="VBoxContainer" parent="Discard"]
-margin_left = -89.0
-margin_top = -46.0
-margin_right = 11.0
-margin_bottom = 112.0
-custom_constants/separation = 2
-
-[node name="Label" type="Label" parent="Discard"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 1.0
 text = "00"
 align = 1
 valign = 1
@@ -551,15 +562,41 @@ patch_margin_left = 3
 patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Pile" type="VBoxContainer" parent="Dropped"]
-visible = false
-margin_left = 5.0
-margin_top = 11.0
-margin_right = 104.0
-margin_bottom = 56.0
+[node name="Btn" type="TextureButton" parent="Dropped"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="Label" type="Label" parent="Dropped"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+text = "00"
+align = 1
+valign = 1
+
+[node name="Discard" type="NinePatchRect" parent="."]
+margin_left = 94.0
+margin_top = 61.0
+margin_right = 107.0
+margin_bottom = 80.0
+texture = ExtResource( 10 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Btn" type="TextureButton" parent="Discard"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Discard"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -579,6 +616,9 @@ margin_right = -2.0
 margin_bottom = -3.0
 custom_constants/separation = 1
 alignment = 2
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Condition" type="Control" parent="Debuffs"]
 margin_left = 32.0
@@ -721,6 +761,9 @@ margin_top = 96.0
 margin_right = 104.0
 margin_bottom = 173.0
 custom_constants/separation = 3
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Pos1" type="NinePatchRect" parent="Hand"]
 self_modulate = Color( 1, 1, 1, 0.294118 )
@@ -789,6 +832,9 @@ margin_top = -17.0
 margin_right = 71.0
 margin_bottom = -1.0
 custom_constants/separation = 1
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Pos1" type="Control" parent="Items"]
 margin_right = 16.0
@@ -838,6 +884,9 @@ margin_left = -39.0
 margin_top = -15.0
 margin_right = -3.0
 margin_bottom = -2.0
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
 text = "End Turn"
 
 [node name="Banner" type="ColorRect" parent="."]
@@ -853,5 +902,158 @@ text = "Banner"
 align = 1
 valign = 1
 
-[connection signal="pressed" from="Discard/Button" to="." method="_on_Discard_Button_pressed"]
+[node name="DrawControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 9.0
+mouse_filter = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Pane" parent="DrawControl" instance=ExtResource( 13 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="Banner" type="ColorRect" parent="DrawControl/Pane"]
+anchor_right = 1.0
+margin_top = -18.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+
+[node name="Label" type="Label" parent="DrawControl/Pane/Banner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 9.0
+text = "Discard Pile"
+align = 1
+valign = 1
+
+[node name="Pile" type="VBoxContainer" parent="DrawControl/Pane"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = -3.0
+margin_bottom = -17.0
+custom_constants/separation = 2
+
+[node name="DrawCloseBtn" type="Button" parent="DrawControl/Pane"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = -15.0
+margin_right = -4.0
+margin_bottom = -4.0
+text = "Close"
+
+[node name="DiscardControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 9.0
+mouse_filter = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="DiscardPane" parent="DiscardControl" instance=ExtResource( 13 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="Banner" type="ColorRect" parent="DiscardControl/DiscardPane"]
+anchor_right = 1.0
+margin_top = -18.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+
+[node name="Label" type="Label" parent="DiscardControl/DiscardPane/Banner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 9.0
+text = "Discard Pile"
+align = 1
+valign = 1
+
+[node name="Pile" type="VBoxContainer" parent="DiscardControl/DiscardPane"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = -3.0
+margin_bottom = -17.0
+custom_constants/separation = 2
+
+[node name="DiscardCloseBtn" type="Button" parent="DiscardControl/DiscardPane"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = -15.0
+margin_right = -4.0
+margin_bottom = -4.0
+text = "Close"
+
+[node name="DroppedControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 9.0
+mouse_filter = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Pane" parent="DroppedControl" instance=ExtResource( 13 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="Banner" type="ColorRect" parent="DroppedControl/Pane"]
+anchor_right = 1.0
+margin_top = -18.0
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
+
+[node name="Label" type="Label" parent="DroppedControl/Pane/Banner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 9.0
+text = "Dropped Pile"
+align = 1
+valign = 1
+
+[node name="Pile" type="VBoxContainer" parent="DroppedControl/Pane"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = -3.0
+margin_bottom = -17.0
+custom_constants/separation = 2
+
+[node name="DroppedCloseBtn" type="Button" parent="DroppedControl/Pane"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = -15.0
+margin_right = -4.0
+margin_bottom = -4.0
+text = "Close"
+
+[connection signal="pressed" from="EnemyPanel/Btn" to="EnemyPanel" method="_on_Btn_pressed"]
+[connection signal="pressed" from="Draw/Btn" to="." method="_on_Draw_Btn_pressed"]
+[connection signal="pressed" from="Dropped/Btn" to="." method="_on_Dropped_Button_pressed"]
+[connection signal="pressed" from="Discard/Btn" to="." method="_on_Discard_Button_pressed"]
 [connection signal="pressed" from="EndTurn" to="." method="_on_EndTurn_pressed"]
+[connection signal="pressed" from="DrawControl/Pane/DrawCloseBtn" to="." method="_on_DrawCloseBtn_pressed"]
+[connection signal="pressed" from="DiscardControl/DiscardPane/DiscardCloseBtn" to="." method="_on_DiscardCloseBtn_pressed"]
+[connection signal="pressed" from="DroppedControl/Pane/DroppedCloseBtn" to="." method="_on_DroppedCloseBtn_pressed"]

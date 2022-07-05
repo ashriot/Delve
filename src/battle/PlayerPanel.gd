@@ -26,7 +26,7 @@ func init(battle) -> void:
 	self.mana_cur = _player.mana_initial
 	self.stamina_cur = _player.stamina
 	self.stamina_max = _player.stamina_max
-	
+
 
 func set_life(value: int) -> void:
 	_player.life = value
