@@ -5,6 +5,7 @@ onready var title := $Title
 onready var profile_pane := $ProfilePane/Pane
 onready var name_edit := $ProfilePane/Pane/NameEdit
 onready var profile_btn := $ProfileBtn
+onready var back_btn := $Back as Button
 
 var _game: Game
 
@@ -32,6 +33,8 @@ func _on_Back_pressed():
 			_game.profile_name = profile_btn.text
 			_game.save_game()
 		_game.hide_window()
+		back_btn.text = "Back"
+		$Back/Icon.texture = load("res://assets/gui/img/back.png")
 		yield(window, "done")
 	elif not title.visible:
 		$Title/AnimationPlayer.play()
@@ -43,6 +46,7 @@ func _on_Back_pressed():
 		tween.start()
 		yield(tween, "tween_all_completed")
 		$Title/Start.disabled = false
+
 
 func _on_Start_pressed():
 	Ac.select()
@@ -56,6 +60,7 @@ func _on_Start_pressed():
 	title.hide()
 	$Title/AnimationPlayer.stop()
 
+
 func _on_ProfileBtn_pressed():
 	Ac.click()
 	name_edit.text = profile_btn.text
@@ -63,6 +68,8 @@ func _on_ProfileBtn_pressed():
 	profile_pane.show()
 	name_edit.grab_focus()
 	name_edit.caret_position = name_edit.text.length()
+	back_btn.text = "Done"
+	$Back/Icon.texture = load("res://assets/gui/img/done.png")
 
 
 func _on_NameEdit_text_changed(_new_text):

@@ -207,7 +207,6 @@ expand = true
 stretch_mode = 4
 
 [node name="ProfilePane" type="Control" parent="GUI/MainMenu"]
-visible = false
 margin_left = 5.0
 margin_top = 137.0
 margin_right = 104.0
@@ -245,7 +244,7 @@ show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -82.0
-margin_bottom = -36.0
+margin_bottom = 12.0
 color = Color( 0, 0, 0, 0.784314 )
 
 [node name="Version" type="Label" parent="GUI/MainMenu"]
@@ -882,6 +881,7 @@ __meta__ = {
 }
 
 [node name="Battle" parent="GUI" instance=ExtResource( 34 )]
+visible = false
 
 [node name="SettingsBtn" type="TextureButton" parent="GUI"]
 anchor_left = 1.0
